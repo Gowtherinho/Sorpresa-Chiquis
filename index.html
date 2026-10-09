@@ -15,6 +15,8 @@
       padding: 0;
       -webkit-tap-highlight-color: transparent;
       user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation; /* Evita el zoom automático en celulares al presionar rápido */
     }
 
     body {
@@ -141,14 +143,14 @@
       transform: scale(0.94);
     }
 
-    /* Animación de Toro Sacudiéndose */
+    /* Animación de Toro Sacudiéndose en pantalla */
     .bull-shake {
       animation: bullBuck 0.12s infinite alternate;
     }
 
     @keyframes bullBuck {
       0% { transform: translate(3px, 2px) rotate(0deg); }
-      25% { transform: translate(-2px, -3px) rotate(-3deg); }
+      25% { transform: translate(-2px, -3px) rotate(-2deg); }
       50% { transform: translate(-4px, 1px) rotate(2deg); }
       75% { transform: translate(4px, 3px) rotate(-2deg); }
       100% { transform: translate(2px, -2px) rotate(3deg); }
@@ -261,16 +263,29 @@
       display: flex;
     }
 
+    /* Toro Animado Brincando */
+    .animated-bull {
+      font-size: 5rem;
+      display: inline-block;
+      animation: bullRodeo 0.4s infinite alternate ease-in-out;
+      margin-bottom: -10px;
+    }
+
+    @keyframes bullRodeo {
+      0% { transform: translateY(0) rotate(-10deg) scale(1); }
+      100% { transform: translateY(-25px) rotate(15deg) scale(1.15); }
+    }
+
     .counter-number {
-      font-size: 4.5rem;
+      font-size: 4rem;
       font-weight: 900;
       color: #f87171;
       text-shadow: 0 0 30px #b91c1c;
     }
 
     .progress-bar-container {
-      width: 80%;
-      height: 18px;
+      width: 85%;
+      height: 20px;
       background: rgba(255, 255, 255, 0.1);
       border-radius: 10px;
       margin: 15px 0;
@@ -289,8 +304,8 @@
       background: linear-gradient(135deg, #22c55e 0%, #15803d 100%);
       color: white;
       border: none;
-      padding: 22px 30px;
-      font-size: 1.2rem;
+      padding: 22px 25px;
+      font-size: 1.15rem;
       font-weight: 900;
       border-radius: 50px;
       box-shadow: 0 10px 25px rgba(34, 197, 94, 0.5);
@@ -298,6 +313,7 @@
       margin-top: 15px;
       width: 85%;
       text-transform: uppercase;
+      touch-action: manipulation;
     }
 
     .tap-btn:active {
@@ -312,21 +328,24 @@
 
   <!-- Pantalla del Juego Interactivo de Jaripeo -->
   <div id="timerOverlay" class="timer-overlay">
+    <!-- Toro Animado -->
+    <div class="animated-bull">🐂🤠</div>
     <div class="counter-number" id="countdown">8s</div>
+    
     <p style="color: #fca5a5; font-weight: 800; font-size: 1.1rem; margin-top: 5px;">
-      🐂 ¡EQUILIBRIO DEL TORO!
+      ¡EQUILIBRIO EN EL TORO!
     </p>
 
     <div class="progress-bar-container">
       <div id="progressBar" class="progress-bar"></div>
     </div>
 
-    <button class="tap-btn" onclick="presionarToro()">
+    <button id="tapButton" class="tap-btn">
       ⚡ ¡MANTÉN EL EQUILIBRIO! (TAP) ⚡
     </button>
     
     <p style="color: #94a3b8; margin-top: 15px; font-size: 0.85rem; text-align: center;">
-      ¡Presiona el botón rápido para no caerte del toro durante 8 segundos!
+      ¡Presiona el botón rápido para no caerte durante 8 segundos!
     </p>
   </div>
 
@@ -353,8 +372,8 @@
           🌲 FORKS x MONTERREY VIP PASS 🤠
         </div>
         
-        <!-- Apunta a la imagen de tu repositorio en GitHub -->
-        <img src="imagen_grupo_frontera-CRE.jpg" alt="Iremos a ver a Grupo Frontera" class="ticket-img" onerror="this.onerror=null; this.src='imagen_grupo_frontera-CRE.png';">
+        <!-- Nombre EXACTO de la imagen según tu captura de GitHub -->
+        <img src="imagen_grupo_frontera-CRE.jpeg" alt="Iremos a ver a Grupo Frontera" class="ticket-img">
         
         <div class="ticket-body">
           <div class="headline-mty">
@@ -390,6 +409,18 @@
     let timeLeft = 8;
     let balance = 100;
 
+    // Configuración del botón TAP para evitar el ZOOM en celulares
+    const tapBtn = document.getElementById('tapButton');
+    
+    function manejarTap(e) {
+      if (e) e.preventDefault();
+      balance = Math.min(100, balance + 18);
+      actualizarUI();
+    }
+
+    tapBtn.addEventListener('touchstart', manejarTap, { passive: false });
+    tapBtn.addEventListener('click', manejarTap);
+
     function iniciarJaripeo() {
       const overlay = document.getElementById('timerOverlay');
       overlay.classList.add('active');
@@ -409,7 +440,7 @@
         }
       }, 1000);
 
-      // Decaimiento del equilibrio si no presiona
+      // Decaimiento del equilibrio
       decayInterval = setInterval(() => {
         balance -= 7;
         if (balance <= 0) {
@@ -418,11 +449,6 @@
         }
         actualizarUI();
       }, 150);
-    }
-
-    function presionarToro() {
-      balance = Math.min(100, balance + 18);
-      actualizarUI();
     }
 
     function actualizarUI() {
@@ -440,7 +466,7 @@
       clearInterval(timerInterval);
       clearInterval(decayInterval);
       document.body.classList.remove('bull-shake');
-      alert("🤠 ¡El toro se sacudió muy fuerte y te tiro! ¡Inténtalo de nuevo presionando más rápido! 🔥");
+      alert("🤠 ¡El toro brinco muy fuerte y te tiro! ¡Inténtalo de nuevo presionando más rápido! 🔥");
       document.getElementById('timerOverlay').classList.remove('active');
     }
 

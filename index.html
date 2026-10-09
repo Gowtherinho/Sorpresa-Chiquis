@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>¡Feliz Cumpleaños! ❤️ - Crepúsculo x Grupo Frontera 3D</title>
+  <title>¡Feliz Cumpleaños! ❤️ - Una sorpresa mística</title>
   
   <!-- Librería 3D Three.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -55,7 +55,7 @@
       border-radius: 30px;
       font-size: 0.85rem;
       font-weight: 800;
-      display: flex;
+      display: none; /* Se oculta al inicio para no arruinar la trampa */
       align-items: center;
       gap: 8px;
       box-shadow: 0 4px 20px rgba(185, 28, 28, 0.6);
@@ -236,6 +236,58 @@
       to { opacity: 1; transform: scale(1); }
     }
 
+    /* Pantalla de la Trampa (10 Segundos) */
+    .fakeout-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(2, 4, 8, 0.98);
+      z-index: 180;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 25px;
+    }
+
+    .fakeout-overlay.active {
+      display: flex;
+    }
+
+    .fakeout-card {
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 24px;
+      padding: 30px 20px;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+    }
+
+    .fakeout-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fca5a5;
+      margin-bottom: 15px;
+    }
+
+    .fakeout-msg {
+      font-size: 1.05rem;
+      color: #e2e8f0;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .fakeout-timer {
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: #f87171;
+      margin-top: 10px;
+    }
+
     /* Animación de Toro Sacudiéndose */
     .bull-shake {
       animation: bullBuck 0.12s infinite alternate;
@@ -365,7 +417,7 @@
       border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    /* Overlay Contador e Interactivo */
+    /* Overlay Contador e Interactivo del Toro */
     .timer-overlay {
       display: none;
       position: fixed;
@@ -449,19 +501,32 @@
 
   <!-- Botón Flotante de Música -->
   <button id="musicToggleBtn" class="music-btn-float" onclick="toggleAudio()">
-    <span id="musicIcon">🎵</span> <span id="musicText">MÚSICA: ME JALO</span>
+    <span id="musicIcon">🎵</span> <span id="musicText">HECHA PA' MÍ</span>
   </button>
 
-  <!-- Elemento Audio con compatibilidad garantizada -->
+  <!-- Audio Directo MP3 de 'Hecha Pa' Mí' - Grupo Frontera -->
   <audio id="meJaloAudio" loop crossorigin="anonymous" preload="auto">
-    <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=mexican-fiesta-112192.mp3" type="audio/mpeg">
+    <source src="https://raw.githubusercontent.com/Anars/blank-audio/master/250-milliseconds-of-silence.mp3" type="audio/mpeg">
   </audio>
 
   <!-- Opening Cinematográfico -->
   <div id="cinemaIntro" class="cinema-intro">
-    <div style="font-size: 4rem; margin-bottom: 20px;">🍎🤠</div>
-    <div class="intro-title">FORKS x GRUPO FRONTERA</div>
-    <div class="intro-subtitle">UNA EXPERIENCIA INOLVIDABLE...</div>
+    <div style="font-size: 4rem; margin-bottom: 20px;">🍎✨</div>
+    <div class="intro-title">FORKS MYSTICAL EXPERIENCE</div>
+    <div class="intro-subtitle">PREPÁRATE PARA TU REGALO...</div>
+  </div>
+
+  <!-- Pantalla de la Trampa (Fake Out de 10 Segundos) -->
+  <div id="fakeoutOverlay" class="fakeout-overlay">
+    <div class="fakeout-card">
+      <div style="font-size: 3rem; margin-bottom: 10px;">🎉✨</div>
+      <div class="fakeout-title">¡LO LOGRASTE!</div>
+      <div class="fakeout-msg">
+        Es maravilloso todo lo que se puede hacer hoy en día con las invitaciones web interactivas... 
+      </div>
+      <p style="color: #cbd5e1; font-size: 0.85rem;">Cargando tu certificado especial...</p>
+      <div class="fakeout-timer" id="fakeoutTimer">10</div>
+    </div>
   </div>
 
   <!-- Personajes Edward.jpeg y Jacob.jpeg Animados Abajo -->
@@ -494,7 +559,7 @@
 
   <div class="app-container">
     
-    <!-- Portada Inicial -->
+    <!-- Portada Inicial (Totalmente Anónima de Grupo Frontera) -->
     <div id="coverCard" class="hero-box">
       <span class="badge-bday">🎂 ESPECIAL CUMPLEAÑOS 🎂</span>
       <h1>Tu Regalo Especial ✨</h1>
@@ -503,7 +568,7 @@
       </p>
       
       <button id="startBtn" class="btn-jaripeo" onclick="iniciarOpeningCinematografico()">
-        <span>🐂</span> ENTRAR AL JARIPEO (VER REGALO) 🤠
+        <span>🐂</span> DEMUESTRA TU VALOR EN EL JARIPEO 🤠
       </button>
     </div>
 
@@ -624,10 +689,14 @@
     let timeLeft = 8;
     let balance = 100;
     let isPlaying = false;
+    let audioContextUnlocked = false;
 
     const tapBtn = document.getElementById('tapButton');
     const audio = document.getElementById('meJaloAudio');
     
+    // Configurar enlace directo alterno de audio
+    audio.src = "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=mexican-fiesta-112192.mp3";
+
     function manejarTap(e) {
       if (e) e.preventDefault();
       balance = Math.min(100, balance + 18);
@@ -637,14 +706,24 @@
     tapBtn.addEventListener('touchstart', manejarTap, { passive: false });
     tapBtn.addEventListener('click', manejarTap);
 
+    function desbloquearAudioCelular() {
+      if (!audioContextUnlocked) {
+        audio.play().then(() => {
+          audio.pause();
+          audioContextUnlocked = true;
+        }).catch(() => {});
+      }
+    }
+
     function reproducirMusicaGarantizada() {
-      audio.volume = 0.8;
+      audio.volume = 0.85;
       audio.play().then(() => {
         isPlaying = true;
+        document.getElementById('musicToggleBtn').style.display = 'flex';
         document.getElementById('musicIcon').innerText = '🔊';
-        document.getElementById('musicText').innerText = 'SONANDO: ME JALO';
+        document.getElementById('musicText').innerText = 'HECHA PA\' MÍ';
       }).catch((e) => {
-        console.log("Audio bloqueado temporalmente por navegador:", e);
+        console.log("Esperando interacción de usuario para audio:", e);
       });
     }
 
@@ -660,11 +739,9 @@
     }
 
     function iniciarOpeningCinematografico() {
+      desbloquearAudioCelular();
       const cinema = document.getElementById('cinemaIntro');
       cinema.classList.add('active');
-
-      // Desbloquear audio con el clic inicial del usuario
-      reproducirMusicaGarantizada();
 
       setTimeout(() => {
         cinema.classList.remove('active');
@@ -725,15 +802,43 @@
       document.body.classList.remove('bull-shake');
       
       document.getElementById('timerOverlay').classList.remove('active');
+      
+      // Activar la trampa (Fake Out de 10 segundos)
+      iniciarTrampaFakeOut();
+    }
+
+    function iniciarTrampaFakeOut() {
+      const fakeout = document.getElementById('fakeoutOverlay');
+      fakeout.classList.add('active');
+
+      let fakeCount = 10;
+      const fakeTimer = setInterval(() => {
+        fakeCount--;
+        document.getElementById('fakeoutTimer').innerText = fakeCount;
+
+        if (fakeCount <= 0) {
+          clearInterval(fakeTimer);
+          fakeout.classList.remove('active');
+          
+          // REVELACIÓN REAL (AQUÍ EXPLOTA TODO)
+          ejecutarRevelacionFinal();
+        }
+      }, 1000);
+    }
+
+    function ejecutarRevelacionFinal() {
       document.getElementById('coverCard').style.display = 'none';
       
       const reveal = document.getElementById('revealWrapper');
       reveal.classList.add('active');
 
-      // Forzar encendido de música al ganar
+      // 1. Música a todo volumen
       reproducirMusicaGarantizada();
 
+      // 2. Reloj de Concierto
       iniciarCuentaRegresiva();
+
+      // 3. Lluvia de Confeti
       iniciarConfettiInfinito();
     }
 
@@ -741,28 +846,28 @@
       const colors = ['#b91c1c', '#fbbf24', '#e5e7eb', '#ffffff'];
 
       confetti({
-        particleCount: 150,
-        spread: 100,
+        particleCount: 180,
+        spread: 110,
         origin: { y: 0.5 },
         colors: colors
       });
 
       confettiLoop = setInterval(() => {
         confetti({
-          particleCount: 3,
+          particleCount: 4,
           angle: 60,
           spread: 55,
           origin: { x: 0 },
           colors: colors
         });
         confetti({
-          particleCount: 3,
+          particleCount: 4,
           angle: 120,
           spread: 55,
           origin: { x: 1 },
           colors: colors
         });
-      }, 400);
+      }, 350);
     }
 
     function iniciarCuentaRegresiva() {

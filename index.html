@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>¡Feliz Cumpleaños adelantado! ❤️ - Una sorpresa mística</title>
+  <title>Proyecto Demo GitHub - Test Interactivo</title>
   
   <!-- Librería 3D Three.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -42,8 +42,103 @@
       pointer-events: none;
     }
 
-    /* Personajes Edward y Jacob asomándose en los bordes inferiores */
+    /* --- CONTENEDOR DE NOTIFICACIONES FALSAS ESTILO iOS --- */
+    .ios-notification-container {
+      position: fixed;
+      top: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 92%;
+      max-width: 420px;
+      z-index: 300;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      pointer-events: none;
+    }
+
+    .ios-notification {
+      background: rgba(25, 25, 30, 0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 20px;
+      padding: 14px 16px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      opacity: 0;
+      transform: translateY(-80px) scale(0.95);
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .ios-notification.show {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .ios-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+
+    .icon-aeromexico {
+      background: linear-gradient(135deg, #0b2341 0%, #00529b 100%);
+      color: #fff;
+    }
+
+    .icon-frontera {
+      background: linear-gradient(135deg, #b91c1c 0%, #450a0a 100%);
+      color: #fff;
+    }
+
+    .ios-content {
+      flex-grow: 1;
+    }
+
+    .ios-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2px;
+    }
+
+    .ios-app-name {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .ios-time {
+      font-size: 0.7rem;
+      color: #64748b;
+    }
+
+    .ios-title {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 2px;
+    }
+
+    .ios-message {
+      font-size: 0.85rem;
+      color: #cbd5e1;
+      line-height: 1.3;
+    }
+
+    /* Personajes Edward y Jacob (SOLO APARECEN EN LA REVELACIÓN FINAL) */
     .wolf-bottom-bar {
+      display: none; /* Oculto al inicio para no spoilear */
       position: fixed;
       bottom: 0;
       left: 0;
@@ -54,7 +149,10 @@
       overflow: hidden;
     }
 
-    /* Edward asomándose a la izquierda (Mucho más grande: 180px) */
+    .wolf-bottom-bar.active {
+      display: block;
+    }
+
     .character-avatar-1 {
       position: absolute;
       bottom: 0;
@@ -67,7 +165,6 @@
       animation: peekAnimationLeft 15s ease-in-out infinite;
     }
 
-    /* Jacob asomándose a la derecha (Mucho más grande: 180px) */
     .character-avatar-2 {
       position: absolute;
       bottom: 0;
@@ -81,47 +178,22 @@
       animation-delay: 0.8s;
     }
 
-    /* Animación de Asomarse e Interactuar */
     @keyframes peekAnimationLeft {
-      0% {
-        transform: translateY(110%) rotate(0deg);
-      }
-      10% {
-        transform: translateY(10%) rotate(6deg);
-      }
-      20% {
-        transform: translateY(0%) rotate(-6deg) scale(1.08);
-      }
-      30% {
-        transform: translateY(10%) rotate(6deg);
-      }
-      33% {
-        transform: translateY(110%) rotate(0deg);
-      }
-      100% {
-        transform: translateY(110%) rotate(0deg);
-      }
+      0% { transform: translateY(110%) rotate(0deg); }
+      10% { transform: translateY(10%) rotate(6deg); }
+      20% { transform: translateY(0%) rotate(-6deg) scale(1.08); }
+      30% { transform: translateY(10%) rotate(6deg); }
+      33% { transform: translateY(110%) rotate(0deg); }
+      100% { transform: translateY(110%) rotate(0deg); }
     }
 
     @keyframes peekAnimationRight {
-      0% {
-        transform: translateY(110%) rotate(0deg);
-      }
-      10% {
-        transform: translateY(10%) rotate(-6deg);
-      }
-      20% {
-        transform: translateY(0%) rotate(6deg) scale(1.08);
-      }
-      30% {
-        transform: translateY(10%) rotate(-6deg);
-      }
-      33% {
-        transform: translateY(110%) rotate(0deg);
-      }
-      100% {
-        transform: translateY(110%) rotate(0deg);
-      }
+      0% { transform: translateY(110%) rotate(0deg); }
+      10% { transform: translateY(10%) rotate(-6deg); }
+      20% { transform: translateY(0%) rotate(6deg) scale(1.08); }
+      30% { transform: translateY(10%) rotate(-6deg); }
+      33% { transform: translateY(110%) rotate(0deg); }
+      100% { transform: translateY(110%) rotate(0deg); }
     }
 
     /* Contenedor Principal Ajustado a Celular */
@@ -149,13 +221,13 @@
       border-radius: 32px;
       padding: 30px 20px;
       text-align: center;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 30px rgba(185, 28, 28, 0.3);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 30px rgba(59, 130, 246, 0.2);
     }
 
     .badge-bday {
-      background: linear-gradient(135deg, #991b1b 0%, #450a0a 100%);
-      border: 1px solid rgba(248, 113, 113, 0.4);
-      color: #fecaca;
+      background: linear-gradient(135deg, #1e3a8a 0%, #1e1b4b 100%);
+      border: 1px solid rgba(147, 197, 253, 0.3);
+      color: #bfdbfe;
       font-size: 0.8rem;
       font-weight: 800;
       letter-spacing: 1.5px;
@@ -163,22 +235,20 @@
       border-radius: 30px;
       display: inline-block;
       margin-bottom: 20px;
-      box-shadow: 0 0 15px rgba(185, 28, 28, 0.5);
     }
 
     h1 {
-      font-size: 2.1rem;
+      font-size: 1.9rem;
       font-weight: 900;
       line-height: 1.2;
       margin-bottom: 16px;
-      background: linear-gradient(135deg, #ffffff 0%, #fca5a5 50%, #991b1b 100%);
+      background: linear-gradient(135deg, #ffffff 0%, #93c5fd 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 20px rgba(252, 165, 165, 0.2);
     }
 
     .subtitle {
-      font-size: 1.05rem;
+      font-size: 1rem;
       color: #cbd5e1;
       line-height: 1.6;
       margin-bottom: 28px;
@@ -188,15 +258,15 @@
     /* Botón Jaripeo */
     .btn-jaripeo {
       width: 100%;
-      background: linear-gradient(135deg, #b91c1c 0%, #7f1d1d 50%, #450a0a 100%);
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
       color: #ffffff;
-      border: 2px solid #f87171;
+      border: 2px solid #60a5fa;
       padding: 20px 20px;
       font-size: 1.05rem;
       font-weight: 800;
       border-radius: 50px;
       cursor: pointer;
-      box-shadow: 0 12px 30px rgba(185, 28, 28, 0.6);
+      box-shadow: 0 12px 30px rgba(37, 99, 235, 0.5);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -208,7 +278,7 @@
       transform: scale(0.94);
     }
 
-    /* Opening Cinematográfico */
+    /* Opening Cinematográfico Neutral */
     .cinema-intro {
       display: none;
       position: fixed;
@@ -230,17 +300,17 @@
     }
 
     .intro-title {
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       font-weight: 900;
       letter-spacing: 4px;
-      color: #f87171;
+      color: #60a5fa;
       text-transform: uppercase;
       margin-bottom: 15px;
       animation: fadeInCinema 2s ease forwards;
     }
 
     .intro-subtitle {
-      font-size: 1rem;
+      font-size: 0.95rem;
       color: #e2e8f0;
       letter-spacing: 2px;
       animation: fadeInCinema 3s ease forwards;
@@ -467,8 +537,8 @@
     .counter-number {
       font-size: 4rem;
       font-weight: 900;
-      color: #f87171;
-      text-shadow: 0 0 30px #b91c1c;
+      color: #60a5fa;
+      text-shadow: 0 0 30px #1d4ed8;
     }
 
     .progress-bar-container {
@@ -478,7 +548,7 @@
       border-radius: 10px;
       margin: 15px 0;
       overflow: hidden;
-      border: 1px solid rgba(248, 113, 113, 0.4);
+      border: 1px solid rgba(96, 165, 250, 0.4);
     }
 
     .progress-bar {
@@ -514,16 +584,43 @@
   <!-- Canvas Three.js 3D -->
   <canvas id="canvas3d"></canvas>
 
+  <!-- Notificaciones Falsas iOS -->
+  <div class="ios-notification-container">
+    <div id="notifFlight" class="ios-notification">
+      <div class="ios-icon icon-aeromexico">✈️</div>
+      <div class="ios-content">
+        <div class="ios-header">
+          <span class="ios-app-name">Aeroméxico</span>
+          <span class="ios-time">Ahora</span>
+        </div>
+        <div class="ios-title">Pases de abordar listos</div>
+        <div class="ios-message">Se han emitido 2 pases de abordar para Monterrey.</div>
+      </div>
+    </div>
+
+    <div id="notifFrontera" class="ios-notification">
+      <div class="ios-icon icon-frontera">🎶</div>
+      <div class="ios-content">
+        <div class="ios-header">
+          <span class="ios-app-name">Grupo Frontera</span>
+          <span class="ios-time">Ahora</span>
+        </div>
+        <div class="ios-title">Confirmación de Concierto</div>
+        <div class="ios-message">¡Te esperamos en el show! 🤠✨</div>
+      </div>
+    </div>
+  </div>
+
   <!-- Elemento Audio apunta al archivo local 'cancion.mp3' en tu repositorio de GitHub -->
   <audio id="meJaloAudio" loop preload="auto">
     <source src="cancion.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- Opening Cinematográfico -->
+  <!-- Opening Cinematográfico TOTALMENTE DISCRETIZADO -->
   <div id="cinemaIntro" class="cinema-intro">
-    <div style="font-size: 4rem; margin-bottom: 20px;">🍎✨</div>
-    <div class="intro-title">FORKS MYSTICAL EXPERIENCE</div>
-    <div class="intro-subtitle">PREPÁRATE PARA TU REGALO...</div>
+    <div style="font-size: 4rem; margin-bottom: 20px;">💻⚡</div>
+    <div class="intro-title">GITHUB DEMO APP</div>
+    <div class="intro-subtitle">CARGANDO MÓDULO INTERACTIVO...</div>
   </div>
 
   <!-- Pantalla de la Trampa (Fake Out de 10 Segundos) -->
@@ -539,8 +636,8 @@
     </div>
   </div>
 
-  <!-- Personajes Edward.jpeg y Jacob.jpeg Asomándose abajo (Grandes 180px, sin marco) -->
-  <div class="wolf-bottom-bar">
+  <!-- Personajes Edward y Jacob (SÓLO SE ACTIVAN EN LA REVELACIÓN FINAL) -->
+  <div id="wolfBottomBar" class="wolf-bottom-bar">
     <img src="Edward.jpeg" alt="Edward" class="character-avatar-1">
     <img src="Jacob.jpeg" alt="Jacob" class="character-avatar-2">
   </div>
@@ -550,8 +647,8 @@
     <div class="animated-bull">🐂🤠</div>
     <div class="counter-number" id="countdown">8s</div>
     
-    <p style="color: #fca5a5; font-weight: 800; font-size: 1.1rem; margin-top: 5px;">
-      ¡EQUILIBRIO EN EL TORO!
+    <p style="color: #93c5fd; font-weight: 800; font-size: 1.1rem; margin-top: 5px;">
+      ¡PRUEBA DE VELOCIDAD DE CLICS!
     </p>
 
     <div class="progress-bar-container">
@@ -563,26 +660,26 @@
     </button>
     
     <p style="color: #94a3b8; margin-top: 15px; font-size: 0.85rem; text-align: center;">
-      ¡Presiona el botón rápido para no caerte durante 8 segundos!
+      ¡Presiona el botón rápido para superar la prueba durante 8 segundos!
     </p>
   </div>
 
   <div class="app-container">
     
-    <!-- Portada Inicial (Totalmente Anónima de Grupo Frontera) -->
+    <!-- Portada Inicial TOTALMENTE DISCRETIZADA Y DESPISTADA -->
     <div id="coverCard" class="hero-box">
-      <span class="badge-bday">🎂 ESPECIAL CUMPLEAÑOS 🎂</span>
-      <h1>Tu Regalo Especial ✨</h1>
+      <span class="badge-bday">💻 PROYECTO GITHUB DEMO 💻</span>
+      <h1>Prueba de Código HTML ✨</h1>
       <p class="subtitle">
-        Esto tiene algo que ver con lo que se viene en los proximos meses... PREPARATE!
+        Estuve practicando unas animaciones y lógica con JavaScript para enseñarte de lo que soy capaz de programar aquí en GitHub.
       </p>
       
       <button id="startBtn" class="btn-jaripeo" onclick="iniciarOpeningCinematografico()">
-        <span>🐂</span> DEMUESTRA TU VALOR EN EL JARIPEO 🤠
+        <span>🎮</span> PROBAR DEMO DEL JUEGO HTML 🚀
       </button>
     </div>
 
-    <!-- Revelación Sorpresa -->
+    <!-- Revelación Sorpresa REAL -->
     <div id="revealWrapper" class="reveal-wrapper">
       
       <div class="vip-pass">
@@ -663,7 +760,7 @@
       geometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
       const material = new THREE.PointsMaterial({
         size: 0.035,
-        color: 0xf87171,
+        color: 0x60a5fa,
         transparent: true,
         opacity: 0.8
       });
@@ -783,7 +880,7 @@
       clearInterval(timerInterval);
       clearInterval(decayInterval);
       document.body.classList.remove('bull-shake');
-      alert("🤠 ¡El toro brincó muy fuerte y te tiró! ¡Inténtalo de nuevo presionando más rápido! 🔥");
+      alert("🤠 ¡Presionaste muy lento! ¡Inténtalo de nuevo más rápido para pasar la prueba! 🔥");
       document.getElementById('timerOverlay').classList.remove('active');
     }
 
@@ -794,13 +891,27 @@
       
       document.getElementById('timerOverlay').classList.remove('active');
       
-      // Activar la trampa (Fake Out de 10 segundos)
+      // Activar la trampa (Fake Out de 10 segundos con Notificaciones Falsas)
       iniciarTrampaFakeOut();
     }
 
     function iniciarTrampaFakeOut() {
       const fakeout = document.getElementById('fakeoutOverlay');
       fakeout.classList.add('active');
+
+      // Notificación 1: Aeroméxico a los 3 segundos
+      setTimeout(() => {
+        const notifFlight = document.getElementById('notifFlight');
+        notifFlight.classList.add('show');
+        if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+      }, 3000);
+
+      // Notificación 2: Grupo Frontera a los 6 segundos
+      setTimeout(() => {
+        const notifFrontera = document.getElementById('notifFrontera');
+        notifFrontera.classList.add('show');
+        if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+      }, 6000);
 
       let fakeCount = 10;
       const fakeTimer = setInterval(() => {
@@ -811,7 +922,11 @@
           clearInterval(fakeTimer);
           fakeout.classList.remove('active');
           
-          // REVELACIÓN REAL (AQUÍ EXPLOTA TODO)
+          // Ocultar notificaciones al revelar la sorpresa
+          document.getElementById('notifFlight').classList.remove('show');
+          document.getElementById('notifFrontera').classList.remove('show');
+
+          // REVELACIÓN REAL
           ejecutarRevelacionFinal();
         }
       }, 1000);
@@ -822,6 +937,14 @@
       
       const reveal = document.getElementById('revealWrapper');
       reveal.classList.add('active');
+
+      // Activar a Edward y Jacob asomándose abajo
+      document.getElementById('wolfBottomBar').classList.add('active');
+
+      // Cambiar las partículas 3D a rojo pasión
+      if (particles) {
+        particles.material.color.setHex(0xf87171);
+      }
 
       // 1. Música de 'Hecha Pa' Mí' a todo volumen desde el archivo local
       reproducirMusicaGarantizada();

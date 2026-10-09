@@ -14,6 +14,7 @@
       margin: 0;
       padding: 0;
       -webkit-tap-highlight-color: transparent;
+      user-select: none;
     }
 
     body {
@@ -133,24 +134,24 @@
       justify-content: center;
       align-items: center;
       gap: 10px;
-      transition: transform 0.2s;
+      transition: transform 0.1s;
     }
 
     .btn-jaripeo:active {
-      transform: scale(0.96);
+      transform: scale(0.94);
     }
 
     /* Animación de Toro Sacudiéndose */
     .bull-shake {
-      animation: bullBuck 0.15s infinite alternate;
+      animation: bullBuck 0.12s infinite alternate;
     }
 
     @keyframes bullBuck {
-      0% { transform: translate(2px, 1px) rotate(0deg); }
-      25% { transform: translate(-1px, -2px) rotate(-2deg); }
-      50% { transform: translate(-3px, 0px) rotate(1deg); }
-      75% { transform: translate(3px, 2px) rotate(-1deg); }
-      100% { transform: translate(1px, -1px) rotate(2deg); }
+      0% { transform: translate(3px, 2px) rotate(0deg); }
+      25% { transform: translate(-2px, -3px) rotate(-3deg); }
+      50% { transform: translate(-4px, 1px) rotate(2deg); }
+      75% { transform: translate(4px, 3px) rotate(-2deg); }
+      100% { transform: translate(2px, -2px) rotate(3deg); }
     }
 
     /* Sección Revelación Sorpresa */
@@ -240,7 +241,7 @@
       border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    /* Overlay Contador */
+    /* Overlay Contador e Interactivo */
     .timer-overlay {
       display: none;
       position: fixed;
@@ -248,11 +249,12 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(0, 0, 0, 0.92);
+      background: rgba(5, 8, 17, 0.96);
       z-index: 100;
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      padding: 20px;
     }
 
     .timer-overlay.active {
@@ -260,26 +262,46 @@
     }
 
     .counter-number {
-      font-size: 6rem;
+      font-size: 4.5rem;
       font-weight: 900;
       color: #f87171;
-      text-shadow: 0 0 40px #b91c1c;
-      animation: pulseNum 0.5s infinite alternate;
+      text-shadow: 0 0 30px #b91c1c;
     }
 
-    @keyframes pulseNum {
-      from { transform: scale(0.9); }
-      to { transform: scale(1.1); }
+    .progress-bar-container {
+      width: 80%;
+      height: 18px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      margin: 15px 0;
+      overflow: hidden;
+      border: 1px solid rgba(248, 113, 113, 0.4);
     }
 
-    .counter-text {
+    .progress-bar {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, #ef4444, #22c55e);
+      transition: width 0.1s linear;
+    }
+
+    .tap-btn {
+      background: linear-gradient(135deg, #22c55e 0%, #15803d 100%);
+      color: white;
+      border: none;
+      padding: 22px 30px;
       font-size: 1.2rem;
-      font-weight: 800;
-      color: #ffffff;
-      margin-top: 10px;
-      letter-spacing: 1px;
-      text-align: center;
-      padding: 0 10px;
+      font-weight: 900;
+      border-radius: 50px;
+      box-shadow: 0 10px 25px rgba(34, 197, 94, 0.5);
+      cursor: pointer;
+      margin-top: 15px;
+      width: 85%;
+      text-transform: uppercase;
+    }
+
+    .tap-btn:active {
+      transform: scale(0.92);
     }
   </style>
 </head>
@@ -288,12 +310,23 @@
   <div class="bg-animation"></div>
   <div class="fog"></div>
 
-  <!-- Pantalla del Minijuego de Jaripeo (8 segundos) -->
+  <!-- Pantalla del Juego Interactivo de Jaripeo -->
   <div id="timerOverlay" class="timer-overlay">
-    <div class="counter-number" id="countdown">8</div>
-    <div class="counter-text">🤠 ¡MANTÉN EL EQUILIBRIO EN EL TORO! 🐂</div>
-    <p style="color: #cbd5e1; margin-top: 15px; font-size: 0.9rem; text-align: center; padding: 0 20px;">
-      ¡Aguanta los 8 segundos para liberar la sorpresa!
+    <div class="counter-number" id="countdown">8s</div>
+    <p style="color: #fca5a5; font-weight: 800; font-size: 1.1rem; margin-top: 5px;">
+      🐂 ¡EQUILIBRIO DEL TORO!
+    </p>
+
+    <div class="progress-bar-container">
+      <div id="progressBar" class="progress-bar"></div>
+    </div>
+
+    <button class="tap-btn" onclick="presionarToro()">
+      ⚡ ¡MANTÉN EL EQUILIBRIO! (TAP) ⚡
+    </button>
+    
+    <p style="color: #94a3b8; margin-top: 15px; font-size: 0.85rem; text-align: center;">
+      ¡Presiona el botón rápido para no caerte del toro durante 8 segundos!
     </p>
   </div>
 
@@ -308,7 +341,7 @@
       </p>
       
       <button id="startBtn" class="btn-jaripeo" onclick="iniciarJaripeo()">
-        <span>🐂</span> AGUANTA EL JARIPEO (VER REGALO) 🤠
+        <span>🐂</span> ENTRAR AL JARIPEO (VER REGALO) 🤠
       </button>
     </div>
 
@@ -320,8 +353,8 @@
           🌲 FORKS x MONTERREY VIP PASS 🤠
         </div>
         
-        <!-- Imagen de Grupo Frontera x Crepúsculo incrustada -->
-        <img src="https://i.ibb.co/3ykG4S5G/grupo-frontera.jpg" alt="Iremos a ver a Grupo Frontera" class="ticket-img">
+        <!-- Apunta a la imagen de tu repositorio en GitHub -->
+        <img src="imagen_grupo_frontera-CRE.jpg" alt="Iremos a ver a Grupo Frontera" class="ticket-img" onerror="this.onerror=null; this.src='imagen_grupo_frontera-CRE.png';">
         
         <div class="ticket-body">
           <div class="headline-mty">
@@ -352,41 +385,84 @@
   </div>
 
   <script>
+    let timerInterval = null;
+    let decayInterval = null;
+    let timeLeft = 8;
+    let balance = 100;
+
     function iniciarJaripeo() {
       const overlay = document.getElementById('timerOverlay');
-      const countdownEl = document.getElementById('countdown');
-      const card = document.getElementById('coverCard');
-      
       overlay.classList.add('active');
-      document.body.classList.add('bull-shake'); // Vibra la pantalla simulando el jaripeo
+      document.body.classList.add('bull-shake');
 
-      let count = 8;
-      
-      const timer = setInterval(() => {
-        count--;
-        countdownEl.innerText = count;
+      timeLeft = 8;
+      balance = 100;
+      actualizarUI();
 
-        if (count <= 0) {
-          clearInterval(timer);
-          overlay.classList.remove('active');
-          document.body.classList.remove('bull-shake');
-          
-          // Ocultar portada y mostrar la revelación
-          card.style.display = 'none';
-          const reveal = document.getElementById('revealWrapper');
-          reveal.classList.add('active');
+      // Temporizador principal de 8 segundos
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        document.getElementById('countdown').innerText = timeLeft + 's';
 
-          // Confeti de fiesta
-          lanzarConfettiJaripeo();
+        if (timeLeft <= 0) {
+          ganarJaripeo();
         }
       }, 1000);
+
+      // Decaimiento del equilibrio si no presiona
+      decayInterval = setInterval(() => {
+        balance -= 7;
+        if (balance <= 0) {
+          balance = 0;
+          perderJaripeo();
+        }
+        actualizarUI();
+      }, 150);
+    }
+
+    function presionarToro() {
+      balance = Math.min(100, balance + 18);
+      actualizarUI();
+    }
+
+    function actualizarUI() {
+      const bar = document.getElementById('progressBar');
+      bar.style.width = balance + '%';
+
+      if (balance > 50) {
+        bar.style.background = 'linear-gradient(90deg, #eab308, #22c55e)';
+      } else {
+        bar.style.background = 'linear-gradient(90deg, #ef4444, #dc2626)';
+      }
+    }
+
+    function perderJaripeo() {
+      clearInterval(timerInterval);
+      clearInterval(decayInterval);
+      document.body.classList.remove('bull-shake');
+      alert("🤠 ¡El toro se sacudió muy fuerte y te tiro! ¡Inténtalo de nuevo presionando más rápido! 🔥");
+      document.getElementById('timerOverlay').classList.remove('active');
+    }
+
+    function ganarJaripeo() {
+      clearInterval(timerInterval);
+      clearInterval(decayInterval);
+      document.body.classList.remove('bull-shake');
+      
+      document.getElementById('timerOverlay').classList.remove('active');
+      document.getElementById('coverCard').style.display = 'none';
+      
+      const reveal = document.getElementById('revealWrapper');
+      reveal.classList.add('active');
+
+      lanzarConfettiJaripeo();
     }
 
     function lanzarConfettiJaripeo() {
       const colors = ['#b91c1c', '#fbbf24', '#e5e7eb', '#ffffff'];
 
       confetti({
-        particleCount: 150,
+        particleCount: 160,
         spread: 100,
         origin: { y: 0.5 },
         colors: colors

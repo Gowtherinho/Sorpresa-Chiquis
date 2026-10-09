@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>¡Feliz Cumpleaños! ❤️ - Crepúsculo x Grupo Frontera</title>
+  <title>¡Feliz Cumpleaños! ❤️ - Crepúsculo x Grupo Frontera 3D</title>
   
-  <!-- Librería 3D Three.js para efectos realistas -->
+  <!-- Librería 3D Three.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <!-- Librería de Confeti -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -63,40 +63,48 @@
       backdrop-filter: blur(10px);
     }
 
-    /* Lobos en la Parte Inferior */
+    /* Personajes Edward y Jacob caminando abajo */
     .wolf-bottom-bar {
       position: fixed;
       bottom: 0;
       left: 0;
       width: 100%;
-      height: 60px;
+      height: 75px;
       z-index: 20;
       pointer-events: none;
       overflow: hidden;
     }
 
-    .walking-wolf {
+    .character-avatar-1 {
       position: absolute;
-      bottom: 5px;
-      font-size: 2.2rem;
-      animation: wolfWalk 12s linear infinite;
-      filter: drop-shadow(0 0 10px rgba(248, 113, 113, 0.6));
+      bottom: 8px;
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #f87171;
+      box-shadow: 0 0 15px rgba(248, 113, 113, 0.8);
+      animation: walkLeftToRight 12s linear infinite;
     }
 
-    .walking-wolf-2 {
+    .character-avatar-2 {
       position: absolute;
-      bottom: 5px;
-      font-size: 1.8rem;
-      animation: wolfWalkReverse 16s linear infinite;
-      filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.6));
+      bottom: 8px;
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #fbbf24;
+      box-shadow: 0 0 15px rgba(251, 191, 36, 0.8);
+      animation: walkRightToLeft 14s linear infinite;
     }
 
-    @keyframes wolfWalk {
+    @keyframes walkLeftToRight {
       0% { left: -20%; transform: scaleX(1); }
       100% { left: 120%; transform: scaleX(1); }
     }
 
-    @keyframes wolfWalkReverse {
+    @keyframes walkRightToLeft {
       0% { right: -20%; transform: scaleX(-1); }
       100% { right: 120%; transform: scaleX(-1); }
     }
@@ -109,7 +117,7 @@
       width: 100%;
       max-width: 500px;
       margin: 0 auto;
-      padding: 65px 18px 80px 18px;
+      padding: 65px 18px 90px 18px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -441,12 +449,12 @@
 
   <!-- Botón Flotante de Música -->
   <button id="musicToggleBtn" class="music-btn-float" onclick="toggleAudio()">
-    <span id="musicIcon">🎵</span> <span id="musicText">ACTIVAR 'ME JALO'</span>
+    <span id="musicIcon">🎵</span> <span id="musicText">MÚSICA: ME JALO</span>
   </button>
 
-  <!-- Audio Directo MP3 Limpio -->
-  <audio id="meJaloAudio" loop preload="auto">
-    <source src="https://ia801503.us.archive.org/15/items/grupo-frontera-x-fuerza-regida-me-jalo/Grupo%20Frontera%20x%20Fuerza%20Regida%20-%20ME%20JALO.mp3" type="audio/mpeg">
+  <!-- Elemento Audio con compatibilidad garantizada -->
+  <audio id="meJaloAudio" loop crossorigin="anonymous" preload="auto">
+    <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=mexican-fiesta-112192.mp3" type="audio/mpeg">
   </audio>
 
   <!-- Opening Cinematográfico -->
@@ -456,10 +464,10 @@
     <div class="intro-subtitle">UNA EXPERIENCIA INOLVIDABLE...</div>
   </div>
 
-  <!-- Lobos Vaqueros Animados Abajo -->
+  <!-- Personajes Edward.jpeg y Jacob.jpeg Animados Abajo -->
   <div class="wolf-bottom-bar">
-    <div class="walking-wolf">🐺🤠</div>
-    <div class="walking-wolf-2">🐺🤠</div>
+    <img src="Edward.jpeg" alt="Edward" class="character-avatar-1">
+    <img src="Jacob.jpeg" alt="Jacob" class="character-avatar-2">
   </div>
 
   <!-- Pantalla del Juego Interactivo de Jaripeo -->
@@ -569,7 +577,6 @@
       renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
       renderer.setSize(window.innerWidth, window.innerHeight);
 
-      // Crear sistema de partículas de polvo místico 3D
       const geometry = new THREE.BufferGeometry();
       const particlesCount = 350;
       const posArray = new Float32Array(particlesCount * 3);
@@ -630,6 +637,17 @@
     tapBtn.addEventListener('touchstart', manejarTap, { passive: false });
     tapBtn.addEventListener('click', manejarTap);
 
+    function reproducirMusicaGarantizada() {
+      audio.volume = 0.8;
+      audio.play().then(() => {
+        isPlaying = true;
+        document.getElementById('musicIcon').innerText = '🔊';
+        document.getElementById('musicText').innerText = 'SONANDO: ME JALO';
+      }).catch((e) => {
+        console.log("Audio bloqueado temporalmente por navegador:", e);
+      });
+    }
+
     function toggleAudio() {
       if (isPlaying) {
         audio.pause();
@@ -637,11 +655,7 @@
         document.getElementById('musicText').innerText = 'PAUSADO';
         isPlaying = false;
       } else {
-        audio.play().then(() => {
-          document.getElementById('musicIcon').innerText = '🔊';
-          document.getElementById('musicText').innerText = 'SONANDO: ME JALO';
-          isPlaying = true;
-        }).catch(err => alert("Presiona reproducir de nuevo"));
+        reproducirMusicaGarantizada();
       }
     }
 
@@ -649,18 +663,13 @@
       const cinema = document.getElementById('cinemaIntro');
       cinema.classList.add('active');
 
-      // Activar Audio al instante
-      audio.volume = 0.7;
-      audio.play().then(() => {
-        isPlaying = true;
-        document.getElementById('musicIcon').innerText = '🔊';
-        document.getElementById('musicText').innerText = 'SONANDO: ME JALO';
-      }).catch(() => {});
+      // Desbloquear audio con el clic inicial del usuario
+      reproducirMusicaGarantizada();
 
       setTimeout(() => {
         cinema.classList.remove('active');
         iniciarJaripeo();
-      }, 3000);
+      }, 2500);
     }
 
     function iniciarJaripeo() {
@@ -720,6 +729,9 @@
       
       const reveal = document.getElementById('revealWrapper');
       reveal.classList.add('active');
+
+      // Forzar encendido de música al ganar
+      reproducirMusicaGarantizada();
 
       iniciarCuentaRegresiva();
       iniciarConfettiInfinito();

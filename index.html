@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>¡Feliz Cumpleaños! ❤️ - El Jaripeo Crepuscular</title>
   
-  <!-- Librería de Confeti -->
+  <!-- Librería para el efecto de confeti -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
   <style>
@@ -74,7 +74,7 @@
     /* Estilo de Tarjeta VIP Full Width */
     .hero-box {
       width: 100%;
-      background: rgba(15, 23, 42, 0.75);
+      background: rgba(15, 23, 42, 0.85);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border: 1px solid rgba(255, 255, 255, 0.15);
@@ -82,7 +82,6 @@
       padding: 30px 20px;
       text-align: center;
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(185, 28, 28, 0.2);
-      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
     .badge-bday {
@@ -118,26 +117,18 @@
       font-weight: 400;
     }
 
-    /* Botón Jaripeo con Animación de Toro Sacudiéndose */
-    .bull-btn-wrapper {
-      position: relative;
-      width: 100%;
-      margin-top: 10px;
-    }
-
+    /* Botón Jaripeo */
     .btn-jaripeo {
       width: 100%;
       background: linear-gradient(135deg, #b91c1c 0%, #7f1d1d 50%, #450a0a 100%);
       color: #ffffff;
       border: 2px solid #f87171;
-      padding: 20px 24px;
-      font-size: 1.1rem;
+      padding: 20px 20px;
+      font-size: 1.05rem;
       font-weight: 800;
       border-radius: 50px;
       cursor: pointer;
-      box-shadow: 0 12px 30px rgba(185, 28, 28, 0.6), inset 0 2px 4px rgba(255, 255, 255, 0.3);
-      position: relative;
-      overflow: hidden;
+      box-shadow: 0 12px 30px rgba(185, 28, 28, 0.6);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -149,7 +140,7 @@
       transform: scale(0.96);
     }
 
-    /* Animación de Toro Mecánico fuera de control */
+    /* Animación de Toro Sacudiéndose */
     .bull-shake {
       animation: bullBuck 0.15s infinite alternate;
     }
@@ -162,7 +153,7 @@
       100% { transform: translate(1px, -1px) rotate(2deg); }
     }
 
-    /* Sección de Revelación Sorpresa */
+    /* Sección Revelación Sorpresa */
     .reveal-wrapper {
       display: none;
       width: 100%;
@@ -178,17 +169,18 @@
     }
 
     .vip-pass {
-      background: rgba(10, 15, 29, 0.9);
+      background: rgba(10, 15, 29, 0.95);
       border: 2px solid #b91c1c;
       border-radius: 24px;
       overflow: hidden;
       margin-bottom: 24px;
       box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9), 0 0 25px rgba(185, 28, 28, 0.4);
+      text-align: center;
     }
 
     .ticket-header {
       background: linear-gradient(90deg, #7f1d1d, #b91c1c);
-      padding: 10px;
+      padding: 12px;
       font-size: 0.85rem;
       font-weight: 800;
       letter-spacing: 2px;
@@ -204,7 +196,7 @@
     }
 
     .ticket-body {
-      padding: 20px 16px;
+      padding: 22px 18px;
     }
 
     .headline-mty {
@@ -235,7 +227,7 @@
 
     .flight-details {
       font-size: 0.9rem;
-      color: #94a3b8;
+      color: #cbd5e1;
       line-height: 1.5;
     }
 
@@ -248,7 +240,7 @@
       border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    /* Contador para el Jaripeo */
+    /* Overlay Contador */
     .timer-overlay {
       display: none;
       position: fixed;
@@ -256,7 +248,7 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(0, 0, 0, 0.9);
+      background: rgba(0, 0, 0, 0.92);
       z-index: 100;
       flex-direction: column;
       justify-content: center;
@@ -281,11 +273,13 @@
     }
 
     .counter-text {
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       font-weight: 800;
       color: #ffffff;
       margin-top: 10px;
       letter-spacing: 1px;
+      text-align: center;
+      padding: 0 10px;
     }
   </style>
 </head>
@@ -294,29 +288,31 @@
   <div class="bg-animation"></div>
   <div class="fog"></div>
 
-  <!-- Pantalla de Cuenta Regresiva de Jaripeo -->
+  <!-- Pantalla del Minijuego de Jaripeo (8 segundos) -->
   <div id="timerOverlay" class="timer-overlay">
     <div class="counter-number" id="countdown">8</div>
-    <div class="counter-text">🤠 ¡MANTENTE EN EL TORO! 🐂</div>
-    <p style="color: #cbd5e1; margin-top: 15px; font-size: 0.9rem;">¡Aguanta para liberar la sorpresa de Grupo Frontera!</p>
+    <div class="counter-text">🤠 ¡MANTÉN EL EQUILIBRIO EN EL TORO! 🐂</div>
+    <p style="color: #cbd5e1; margin-top: 15px; font-size: 0.9rem; text-align: center; padding: 0 20px;">
+      ¡Aguanta los 8 segundos para liberar la sorpresa!
+    </p>
   </div>
 
   <div class="app-container">
     
-    <!-- Sección Inicial (Cover) -->
+    <!-- Portada Inicial -->
     <div id="coverCard" class="hero-box">
       <span class="badge-bday">🎂 ESPECIAL CUMPLEAÑOS 🎂</span>
       <h1>Tu Regalo Especial ✨</h1>
-      <p class="subtitle">Sé que no podré estar contigo el día de tu cumpleaños porque vas a estar en Chiapas... pero tu regalo no podía esperar más.</p>
+      <p class="subtitle">
+        Sé que no podré estar contigo el día de tu cumpleaños porque vas a estar en Chiapas... pero tu regalo no podía esperar más.
+      </p>
       
-      <div class="bull-btn-wrapper">
-        <button id="startBtn" class="btn-jaripeo" onclick="iniciarJaripeo()">
-          <span>🐂</span> ENTAR AL JARIPEO (VER REGALO) 🤠
-        </button>
-      </div>
+      <button id="startBtn" class="btn-jaripeo" onclick="iniciarJaripeo()">
+        <span>🐂</span> AGUANTA EL JARIPEO (VER REGALO) 🤠
+      </button>
     </div>
 
-    <!-- Sección Sorpresa Revelada -->
+    <!-- Revelación Sorpresa -->
     <div id="revealWrapper" class="reveal-wrapper">
       
       <div class="vip-pass">
@@ -324,7 +320,7 @@
           🌲 FORKS x MONTERREY VIP PASS 🤠
         </div>
         
-        <!-- Imagen editada de Grupo Frontera x Crepúsculo -->
+        <!-- Imagen de Grupo Frontera x Crepúsculo incrustada -->
         <img src="https://i.ibb.co/3ykG4S5G/grupo-frontera.jpg" alt="Iremos a ver a Grupo Frontera" class="ticket-img">
         
         <div class="ticket-body">
@@ -341,7 +337,7 @@
               <span style="color: #4ade80;">¡LISTOS! ✓</span>
             </div>
             <div class="flight-details">
-              Tú solo preocúpate por hacer la maleta y disfrutar la fiesta. ¡Yo me encargo de absolutamente todo lo demás! ❤️
+              Tú solo preocúpate por alistar la maleta y disfrutar. ¡Yo me encargo de absolutamente todo lo demás! ❤️
             </div>
           </div>
 
@@ -362,7 +358,7 @@
       const card = document.getElementById('coverCard');
       
       overlay.classList.add('active');
-      document.body.classList.add('bull-shake'); // Vibra la pantalla como rodeo
+      document.body.classList.add('bull-shake'); // Vibra la pantalla simulando el jaripeo
 
       let count = 8;
       
@@ -375,19 +371,18 @@
           overlay.classList.remove('active');
           document.body.classList.remove('bull-shake');
           
-          // Ocultar portada y mostrar revelación
+          // Ocultar portada y mostrar la revelación
           card.style.display = 'none';
           const reveal = document.getElementById('revealWrapper');
           reveal.classList.add('active');
 
-          // Explotar con confeti de fiesta
+          // Confeti de fiesta
           lanzarConfettiJaripeo();
         }
       }, 1000);
     }
 
     function lanzarConfettiJaripeo() {
-      // Confeti Místico + Vaquero (Rojo, Dorado, Plateado)
       const colors = ['#b91c1c', '#fbbf24', '#e5e7eb', '#ffffff'];
 
       confetti({

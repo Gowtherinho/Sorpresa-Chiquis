@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Una sorpresa muy especial ❤️</title>
+  <title>¡Feliz Cumpleaños! ❤️ - Una sorpresa para ti</title>
   
   <!-- Librería para el efecto de confeti y serpentinas de fiesta -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -41,8 +41,22 @@
       position: relative;
     }
 
+    .badge-bday {
+      background: linear-gradient(135deg, #f43f5e 0%, #be123c 100%);
+      color: white;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 6px 16px;
+      border-radius: 20px;
+      display: inline-block;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 12px rgba(244, 63, 94, 0.3);
+    }
+
     h1 {
-      font-size: 2rem;
+      font-size: 1.8rem;
       font-weight: 800;
       margin-bottom: 14px;
       background: linear-gradient(135deg, #fb7185 0%, #f43f5e 100%);
@@ -51,7 +65,7 @@
     }
 
     p.subtitle {
-      font-size: 1.05rem;
+      font-size: 1rem;
       color: #e2e8f0;
       margin-bottom: 28px;
       line-height: 1.6;
@@ -91,7 +105,6 @@
       margin-top: 10px;
     }
 
-    /* Animación especial para mostrar la imagen */
     .pop-in {
       animation: popIn 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
     }
@@ -116,10 +129,29 @@
     }
 
     .message {
-      font-size: 1.2rem;
+      font-size: 1.15rem;
       color: #f8fafc;
       font-weight: 600;
+      line-height: 1.6;
+    }
+
+    .flight-box {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px dashed rgba(251, 113, 133, 0.5);
+      border-radius: 16px;
+      padding: 16px;
+      margin: 18px 0;
+      text-align: center;
+    }
+
+    .flight-box p {
+      font-size: 0.95rem;
+      color: #e2e8f0;
       line-height: 1.5;
+    }
+
+    .flight-box strong {
+      color: #fb7185;
     }
 
     .highlight {
@@ -142,59 +174,63 @@
 
   <div class="card">
     <div id="cover-section">
-      <h1>Tengo una sorpresa para ti ✨</h1>
-      <p class="subtitle">Preparé este detalle especial porque no podía aguantar la emoción de contártelo...</p>
-      <button class="btn-surprise" onclick="mostrarSorpresa()">Ver sorpresa 🎁</button>
+      <span class="badge-bday">🎂 ¡Feliz Cumpleaños! 🎉</span>
+      <h1>Tengo un regalo especial para ti ✨</h1>
+      <p class="subtitle">Sé que no podré estar contigo el día de tu cumpleaños porque te vas a Chiapas, pero no quería dejar pasar este momento sin darte tu regalo especial...</p>
+      <button class="btn-surprise" onclick="mostrarSorpresa()">Ver regalo 🎁</button>
     </div>
 
     <div id="reveal-section" class="reveal-section">
-      <!-- Nombre exacto del archivo subido en tu repositorio -->
-      <img src="imagen_grupo_frontera.jpg.jpeg" alt="Iremos a ver a Grupo Frontera" class="ticket-img">
+      <!-- Imagen cargada dinámicamente con la versión editada -->
+      <img src="https://i.ibb.co/3ykG4S5G/grupo-frontera.jpg" alt="Iremos a ver a Grupo Frontera" class="ticket-img">
+      
       <p class="message">
         ¡Nos vamos juntos!
-        <span class="highlight">🤠 GRUPO FRONTERA 🎶</span>
+        <span class="highlight">🤠 GRUPO FRONTERA EN MONTERREY 🎶</span>
       </p>
-      <p class="footer-note">¡Prepara la voz para cantar el 18 de Diciembre en MTY! ❤️</p>
+
+      <div class="flight-box">
+        <p>✈️ <strong>¡Los boletos de avión ya están listos!</strong><br>
+        Tú solo encárgate de alistar la maleta y disfrutar, ¡yo me encargo de todo lo demás! 😉❤️</p>
+      </div>
+
+      <p class="footer-note">¡Prepara la voz para cantar a todo pulmón este 18 de Diciembre! 🌹</p>
     </div>
   </div>
 
   <script>
     function mostrarSorpresa() {
-      // Oculta la portada y muestra la revelación
       document.getElementById('cover-section').style.display = 'none';
       
       const reveal = document.getElementById('reveal-section');
       reveal.style.display = 'block';
       reveal.classList.add('pop-in');
 
-      // Lanzar serpentinas y confeti de fiesta
       lanzarConfetti();
     }
 
     function lanzarConfetti() {
-      // Ráfaga central inicial
       confetti({
-        particleCount: 100,
-        spread: 70,
+        particleCount: 120,
+        spread: 80,
         origin: { y: 0.6 }
       });
 
-      // Lluvia de serpentinas desde los lados
-      var duration = 3 * 1000;
+      var duration = 3.5 * 1000;
       var end = Date.now() + duration;
 
       (function frame() {
         confetti({
-          particleCount: 4,
+          particleCount: 5,
           angle: 60,
-          spread: 55,
+          spread: 60,
           origin: { x: 0 },
           colors: ['#f43f5e', '#fb7185', '#ffffff', '#fbbf24']
         });
         confetti({
-          particleCount: 4,
+          particleCount: 5,
           angle: 120,
-          spread: 55,
+          spread: 60,
           origin: { x: 1 },
           colors: ['#f43f5e', '#fb7185', '#ffffff', '#fbbf24']
         });

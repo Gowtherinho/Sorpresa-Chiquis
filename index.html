@@ -42,13 +42,13 @@
       pointer-events: none;
     }
 
-    /* Personajes Edward y Jacob caminando abajo */
+    /* Personajes Edward y Jacob bailando y caminando abajo */
     .wolf-bottom-bar {
       position: fixed;
       bottom: 0;
       left: 0;
       width: 100%;
-      height: 75px;
+      height: 110px;
       z-index: 20;
       pointer-events: none;
       overflow: hidden;
@@ -56,28 +56,25 @@
 
     .character-avatar-1 {
       position: absolute;
-      bottom: 8px;
-      width: 55px;
-      height: 55px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid #f87171;
-      box-shadow: 0 0 15px rgba(248, 113, 113, 0.8);
-      animation: walkLeftToRight 12s linear infinite;
+      bottom: 5px;
+      width: 85px;
+      height: 85px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 12px rgba(248, 113, 113, 0.7));
+      animation: walkLeftToRight 12s linear infinite, danceBounce 5s ease-in-out infinite;
     }
 
     .character-avatar-2 {
       position: absolute;
-      bottom: 8px;
-      width: 55px;
-      height: 55px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid #fbbf24;
-      box-shadow: 0 0 15px rgba(251, 191, 36, 0.8);
-      animation: walkRightToLeft 14s linear infinite;
+      bottom: 5px;
+      width: 85px;
+      height: 85px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.7));
+      animation: walkRightToLeft 14s linear infinite, danceBounceReverse 5s ease-in-out infinite;
     }
 
+    /* Animación de Caminar */
     @keyframes walkLeftToRight {
       0% { left: -20%; transform: scaleX(1); }
       100% { left: 120%; transform: scaleX(1); }
@@ -88,6 +85,21 @@
       100% { right: 120%; transform: scaleX(-1); }
     }
 
+    /* Animación de Baile cada 5 segundos */
+    @keyframes danceBounce {
+      0%, 80%, 100% { transform: translateY(0) rotate(0deg); }
+      85% { transform: translateY(-25px) rotate(-12deg) scale(1.15); }
+      90% { transform: translateY(-10px) rotate(12deg) scale(1.1); }
+      95% { transform: translateY(-20px) rotate(-8deg) scale(1.15); }
+    }
+
+    @keyframes danceBounceReverse {
+      0%, 80%, 100% { transform: translateY(0) rotate(0deg); }
+      85% { transform: translateY(-25px) rotate(12deg) scale(1.15); }
+      90% { transform: translateY(-10px) rotate(-12deg) scale(1.1); }
+      95% { transform: translateY(-20px) rotate(8deg) scale(1.15); }
+    }
+
     /* Contenedor Principal Ajustado a Celular */
     .app-container {
       position: relative;
@@ -96,7 +108,7 @@
       width: 100%;
       max-width: 500px;
       margin: 0 auto;
-      padding: 65px 18px 90px 18px;
+      padding: 65px 18px 110px 18px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -503,7 +515,7 @@
     </div>
   </div>
 
-  <!-- Personajes Edward.jpeg y Jacob.jpeg Animados Abajo -->
+  <!-- Personajes Edward.jpeg y Jacob.jpeg Animados Abajo sin burbuja y bailando -->
   <div class="wolf-bottom-bar">
     <img src="Edward.jpeg" alt="Edward" class="character-avatar-1">
     <img src="Jacob.jpeg" alt="Jacob" class="character-avatar-2">

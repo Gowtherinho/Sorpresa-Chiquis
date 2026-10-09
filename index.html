@@ -42,62 +42,90 @@
       pointer-events: none;
     }
 
-    /* Personajes Edward y Jacob bailando y caminando abajo */
+    /* Personajes Edward y Jacob asomándose en los bordes inferiores */
     .wolf-bottom-bar {
       position: fixed;
       bottom: 0;
       left: 0;
       width: 100%;
-      height: 110px;
-      z-index: 20;
+      height: 160px;
+      z-index: 50;
       pointer-events: none;
       overflow: hidden;
     }
 
+    /* Edward asomándose a la izquierda (Aparece 5s, se oculta 10s -> ciclo de 15s) */
     .character-avatar-1 {
       position: absolute;
-      bottom: 5px;
-      width: 85px;
-      height: 85px;
+      bottom: 0;
+      left: 10px;
+      width: 140px;
+      height: 150px;
       object-fit: contain;
-      filter: drop-shadow(0 0 12px rgba(248, 113, 113, 0.7));
-      animation: walkLeftToRight 12s linear infinite, danceBounce 5s ease-in-out infinite;
+      filter: drop-shadow(0 0 15px rgba(248, 113, 113, 0.8));
+      transform: translateY(110%);
+      animation: peekAnimationLeft 15s ease-in-out infinite;
     }
 
+    /* Jacob asomándose a la derecha (Aparece 5s, se oculta 10s -> ciclo de 15s) */
     .character-avatar-2 {
       position: absolute;
-      bottom: 5px;
-      width: 85px;
-      height: 85px;
+      bottom: 0;
+      right: 10px;
+      width: 140px;
+      height: 150px;
       object-fit: contain;
-      filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.7));
-      animation: walkRightToLeft 14s linear infinite, danceBounceReverse 5s ease-in-out infinite;
+      filter: drop-shadow(0 0 15px rgba(251, 191, 36, 0.8));
+      transform: translateY(110%);
+      animation: peekAnimationRight 15s ease-in-out infinite;
+      animation-delay: 1s; /* Ligero desfase para dinamismo */
     }
 
-    /* Animación de Caminar */
-    @keyframes walkLeftToRight {
-      0% { left: -20%; transform: scaleX(1); }
-      100% { left: 120%; transform: scaleX(1); }
+    /* Animación de Asomarse e Interactuar */
+    @keyframes peekAnimationLeft {
+      0% {
+        transform: translateY(110%) rotate(0deg);
+      }
+      /* Se asoma en los primeros 1.5s */
+      10% {
+        transform: translateY(15%) rotate(5deg);
+      }
+      /* Baila/Se mueve durante su estadía (5 segundos en pantalla) */
+      20% {
+        transform: translateY(5%) rotate(-5deg) scale(1.05);
+      }
+      30% {
+        transform: translateY(15%) rotate(5deg);
+      }
+      /* Se oculta al segundo 5 */
+      33% {
+        transform: translateY(110%) rotate(0deg);
+      }
+      /* Permanece oculto durante 10 segundos */
+      100% {
+        transform: translateY(110%) rotate(0deg);
+      }
     }
 
-    @keyframes walkRightToLeft {
-      0% { right: -20%; transform: scaleX(-1); }
-      100% { right: 120%; transform: scaleX(-1); }
-    }
-
-    /* Animación de Baile cada 5 segundos */
-    @keyframes danceBounce {
-      0%, 80%, 100% { transform: translateY(0) rotate(0deg); }
-      85% { transform: translateY(-25px) rotate(-12deg) scale(1.15); }
-      90% { transform: translateY(-10px) rotate(12deg) scale(1.1); }
-      95% { transform: translateY(-20px) rotate(-8deg) scale(1.15); }
-    }
-
-    @keyframes danceBounceReverse {
-      0%, 80%, 100% { transform: translateY(0) rotate(0deg); }
-      85% { transform: translateY(-25px) rotate(12deg) scale(1.15); }
-      90% { transform: translateY(-10px) rotate(-12deg) scale(1.1); }
-      95% { transform: translateY(-20px) rotate(8deg) scale(1.15); }
+    @keyframes peekAnimationRight {
+      0% {
+        transform: translateY(110%) rotate(0deg);
+      }
+      10% {
+        transform: translateY(15%) rotate(-5deg);
+      }
+      20% {
+        transform: translateY(5%) rotate(5deg) scale(1.05);
+      }
+      30% {
+        transform: translateY(15%) rotate(-5deg);
+      }
+      33% {
+        transform: translateY(110%) rotate(0deg);
+      }
+      100% {
+        transform: translateY(110%) rotate(0deg);
+      }
     }
 
     /* Contenedor Principal Ajustado a Celular */
@@ -515,7 +543,7 @@
     </div>
   </div>
 
-  <!-- Personajes Edward.jpeg y Jacob.jpeg Animados Abajo sin burbuja y bailando -->
+  <!-- Personajes Edward.jpeg y Jacob.jpeg Asomándose abajo (Grandes, sin marco) -->
   <div class="wolf-bottom-bar">
     <img src="Edward.jpeg" alt="Edward" class="character-avatar-1">
     <img src="Jacob.jpeg" alt="Jacob" class="character-avatar-2">

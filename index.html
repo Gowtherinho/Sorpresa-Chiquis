@@ -42,27 +42,6 @@
       pointer-events: none;
     }
 
-    /* Botón Flotante de Música */
-    .music-btn-float {
-      position: fixed;
-      top: 15px;
-      right: 15px;
-      z-index: 150;
-      background: linear-gradient(135deg, #b91c1c 0%, #450a0a 100%);
-      border: 1px solid rgba(248, 113, 113, 0.8);
-      color: white;
-      padding: 10px 18px;
-      border-radius: 30px;
-      font-size: 0.85rem;
-      font-weight: 800;
-      display: none; /* Se oculta al inicio para no arruinar la trampa */
-      align-items: center;
-      gap: 8px;
-      box-shadow: 0 4px 20px rgba(185, 28, 28, 0.6);
-      cursor: pointer;
-      backdrop-filter: blur(10px);
-    }
-
     /* Personajes Edward y Jacob caminando abajo */
     .wolf-bottom-bar {
       position: fixed;
@@ -499,14 +478,9 @@
   <!-- Canvas Three.js 3D -->
   <canvas id="canvas3d"></canvas>
 
-  <!-- Botón Flotante de Música -->
-  <button id="musicToggleBtn" class="music-btn-float" onclick="toggleAudio()">
-    <span id="musicIcon">🎵</span> <span id="musicText">HECHA PA' MÍ</span>
-  </button>
-
-  <!-- Audio Directo MP3 de 'Hecha Pa' Mí' - Grupo Frontera -->
-  <audio id="meJaloAudio" loop crossorigin="anonymous" preload="auto">
-    <source src="https://raw.githubusercontent.com/Anars/blank-audio/master/250-milliseconds-of-silence.mp3" type="audio/mpeg">
+  <!-- Elemento Audio apunta al archivo local 'cancion.mp3' en tu repositorio de GitHub -->
+  <audio id="meJaloAudio" loop preload="auto">
+    <source src="cancion.mp3" type="audio/mpeg">
   </audio>
 
   <!-- Opening Cinematográfico -->
@@ -688,14 +662,10 @@
     let confettiLoop = null;
     let timeLeft = 8;
     let balance = 100;
-    let isPlaying = false;
     let audioContextUnlocked = false;
 
     const tapBtn = document.getElementById('tapButton');
     const audio = document.getElementById('meJaloAudio');
-    
-    // Configurar enlace directo alterno de audio
-    audio.src = "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=mexican-fiesta-112192.mp3";
 
     function manejarTap(e) {
       if (e) e.preventDefault();
@@ -716,26 +686,11 @@
     }
 
     function reproducirMusicaGarantizada() {
-      audio.volume = 0.85;
-      audio.play().then(() => {
-        isPlaying = true;
-        document.getElementById('musicToggleBtn').style.display = 'flex';
-        document.getElementById('musicIcon').innerText = '🔊';
-        document.getElementById('musicText').innerText = 'HECHA PA\' MÍ';
-      }).catch((e) => {
-        console.log("Esperando interacción de usuario para audio:", e);
+      audio.currentTime = 0;
+      audio.volume = 0.9;
+      audio.play().catch((e) => {
+        console.log("Error al reproducir audio local:", e);
       });
-    }
-
-    function toggleAudio() {
-      if (isPlaying) {
-        audio.pause();
-        document.getElementById('musicIcon').innerText = '🔇';
-        document.getElementById('musicText').innerText = 'PAUSADO';
-        isPlaying = false;
-      } else {
-        reproducirMusicaGarantizada();
-      }
     }
 
     function iniciarOpeningCinematografico() {
@@ -832,7 +787,7 @@
       const reveal = document.getElementById('revealWrapper');
       reveal.classList.add('active');
 
-      // 1. Música a todo volumen
+      // 1. Música de 'Hecha Pa' Mí' a todo volumen desde el archivo local
       reproducirMusicaGarantizada();
 
       // 2. Reloj de Concierto

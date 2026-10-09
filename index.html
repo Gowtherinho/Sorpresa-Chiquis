@@ -48,37 +48,37 @@
       bottom: 0;
       left: 0;
       width: 100%;
-      height: 160px;
+      height: 190px;
       z-index: 50;
       pointer-events: none;
       overflow: hidden;
     }
 
-    /* Edward asomándose a la izquierda (Aparece 5s, se oculta 10s -> ciclo de 15s) */
+    /* Edward asomándose a la izquierda (Mucho más grande: 180px) */
     .character-avatar-1 {
       position: absolute;
       bottom: 0;
-      left: 10px;
-      width: 140px;
-      height: 150px;
+      left: 5px;
+      width: 170px;
+      height: 180px;
       object-fit: contain;
-      filter: drop-shadow(0 0 15px rgba(248, 113, 113, 0.8));
+      filter: drop-shadow(0 0 18px rgba(248, 113, 113, 0.85));
       transform: translateY(110%);
       animation: peekAnimationLeft 15s ease-in-out infinite;
     }
 
-    /* Jacob asomándose a la derecha (Aparece 5s, se oculta 10s -> ciclo de 15s) */
+    /* Jacob asomándose a la derecha (Mucho más grande: 180px) */
     .character-avatar-2 {
       position: absolute;
       bottom: 0;
-      right: 10px;
-      width: 140px;
-      height: 150px;
+      right: 5px;
+      width: 170px;
+      height: 180px;
       object-fit: contain;
-      filter: drop-shadow(0 0 15px rgba(251, 191, 36, 0.8));
+      filter: drop-shadow(0 0 18px rgba(251, 191, 36, 0.85));
       transform: translateY(110%);
       animation: peekAnimationRight 15s ease-in-out infinite;
-      animation-delay: 1s; /* Ligero desfase para dinamismo */
+      animation-delay: 0.8s;
     }
 
     /* Animación de Asomarse e Interactuar */
@@ -86,22 +86,18 @@
       0% {
         transform: translateY(110%) rotate(0deg);
       }
-      /* Se asoma en los primeros 1.5s */
       10% {
-        transform: translateY(15%) rotate(5deg);
+        transform: translateY(10%) rotate(6deg);
       }
-      /* Baila/Se mueve durante su estadía (5 segundos en pantalla) */
       20% {
-        transform: translateY(5%) rotate(-5deg) scale(1.05);
+        transform: translateY(0%) rotate(-6deg) scale(1.08);
       }
       30% {
-        transform: translateY(15%) rotate(5deg);
+        transform: translateY(10%) rotate(6deg);
       }
-      /* Se oculta al segundo 5 */
       33% {
         transform: translateY(110%) rotate(0deg);
       }
-      /* Permanece oculto durante 10 segundos */
       100% {
         transform: translateY(110%) rotate(0deg);
       }
@@ -112,13 +108,13 @@
         transform: translateY(110%) rotate(0deg);
       }
       10% {
-        transform: translateY(15%) rotate(-5deg);
+        transform: translateY(10%) rotate(-6deg);
       }
       20% {
-        transform: translateY(5%) rotate(5deg) scale(1.05);
+        transform: translateY(0%) rotate(6deg) scale(1.08);
       }
       30% {
-        transform: translateY(15%) rotate(-5deg);
+        transform: translateY(10%) rotate(-6deg);
       }
       33% {
         transform: translateY(110%) rotate(0deg);
@@ -136,7 +132,7 @@
       width: 100%;
       max-width: 500px;
       margin: 0 auto;
-      padding: 65px 18px 110px 18px;
+      padding: 65px 18px 120px 18px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -543,7 +539,7 @@
     </div>
   </div>
 
-  <!-- Personajes Edward.jpeg y Jacob.jpeg Asomándose abajo (Grandes, sin marco) -->
+  <!-- Personajes Edward.jpeg y Jacob.jpeg Asomándose abajo (Grandes 180px, sin marco) -->
   <div class="wolf-bottom-bar">
     <img src="Edward.jpeg" alt="Edward" class="character-avatar-1">
     <img src="Jacob.jpeg" alt="Jacob" class="character-avatar-2">

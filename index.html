@@ -16,7 +16,7 @@
       -webkit-tap-highlight-color: transparent;
       user-select: none;
       -webkit-user-select: none;
-      touch-action: manipulation; /* Evita el zoom automático en celulares al presionar rápido */
+      touch-action: manipulation;
     }
 
     body {
@@ -29,7 +29,7 @@
       position: relative;
     }
 
-    /* Fondo Místico de Niebla de Forks & Luces de Concierto */
+    /* Fondo Místico de Niebla de Forks */
     .bg-animation {
       position: fixed;
       top: 0;
@@ -59,6 +59,44 @@
       100% { transform: translate3d(-50%, 0, 0); }
     }
 
+    /* Lobos Vaqueros en la parte inferior */
+    .wolf-bottom-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      z-index: 20;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .walking-wolf {
+      position: absolute;
+      bottom: 5px;
+      font-size: 2.2rem;
+      animation: wolfWalk 12s linear infinite;
+      filter: drop-shadow(0 0 10px rgba(248, 113, 113, 0.6));
+    }
+
+    .walking-wolf-2 {
+      position: absolute;
+      bottom: 5px;
+      font-size: 1.8rem;
+      animation: wolfWalkReverse 16s linear infinite;
+      filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.6));
+    }
+
+    @keyframes wolfWalk {
+      0% { left: -20%; transform: scaleX(1); }
+      100% { left: 120%; transform: scaleX(1); }
+    }
+
+    @keyframes wolfWalkReverse {
+      0% { right: -20%; transform: scaleX(-1); }
+      100% { right: 120%; transform: scaleX(-1); }
+    }
+
     /* Contenedor Principal Ajustado a Celular */
     .app-container {
       position: relative;
@@ -67,7 +105,7 @@
       width: 100%;
       max-width: 500px;
       margin: 0 auto;
-      padding: 24px 18px 40px 18px;
+      padding: 24px 18px 80px 18px; /* Espacio extra abajo para los lobos */
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -143,7 +181,7 @@
       transform: scale(0.94);
     }
 
-    /* Animación de Toro Sacudiéndose en pantalla */
+    /* Animación de Toro Sacudiéndose */
     .bull-shake {
       animation: bullBuck 0.12s infinite alternate;
     }
@@ -209,6 +247,36 @@
       margin-bottom: 8px;
     }
 
+    /* Contador para la fecha del concierto */
+    .countdown-box {
+      background: rgba(185, 28, 28, 0.15);
+      border: 1px solid rgba(248, 113, 113, 0.3);
+      border-radius: 16px;
+      padding: 12px;
+      margin: 15px 0;
+      display: flex;
+      justify-content: space-around;
+      text-align: center;
+    }
+
+    .time-unit {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .time-val {
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: #fca5a5;
+    }
+
+    .time-lbl {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      color: #cbd5e1;
+      letter-spacing: 1px;
+    }
+
     .flight-card {
       background: rgba(255, 255, 255, 0.05);
       border: 1px dashed rgba(252, 165, 165, 0.4);
@@ -263,7 +331,6 @@
       display: flex;
     }
 
-    /* Toro Animado Brincando */
     .animated-bull {
       font-size: 5rem;
       display: inline-block;
@@ -326,9 +393,19 @@
   <div class="bg-animation"></div>
   <div class="fog"></div>
 
+  <!-- Lobos Vaqueros Animados Abajo -->
+  <div class="wolf-bottom-bar">
+    <div class="walking-wolf">🐺🤠</div>
+    <div class="walking-wolf-2">🐺🤠</div>
+  </div>
+
+  <!-- Audio Ambiente (Melodía de Celebración) -->
+  <audio id="bdayAudio" loop preload="auto">
+    <source src="https://assets.mixkit.co/music/preview/mixkit-a-very-happy-christmas-897.mp3" type="audio/mpeg">
+  </audio>
+
   <!-- Pantalla del Juego Interactivo de Jaripeo -->
   <div id="timerOverlay" class="timer-overlay">
-    <!-- Toro Animado -->
     <div class="animated-bull">🐂🤠</div>
     <div class="counter-number" id="countdown">8s</div>
     
@@ -372,13 +449,33 @@
           🌲 FORKS x MONTERREY VIP PASS 🤠
         </div>
         
-        <!-- Nombre EXACTO de la imagen según tu captura de GitHub -->
         <img src="imagen_grupo_frontera-CRE.jpeg" alt="Iremos a ver a Grupo Frontera" class="ticket-img">
         
         <div class="ticket-body">
           <div class="headline-mty">
             ¡NOS VAMOS A VER A GRUPO FRONTERA! 🎶
           </div>
+
+          <!-- Reloj de Cuenta Regresiva para el 18 de Diciembre -->
+          <div class="countdown-box">
+            <div class="time-unit">
+              <span id="cDays" class="time-val">00</span>
+              <span class="time-lbl">Días</span>
+            </div>
+            <div class="time-unit">
+              <span id="cHours" class="time-val">00</span>
+              <span class="time-lbl">Horas</span>
+            </div>
+            <div class="time-unit">
+              <span id="cMins" class="time-val">00</span>
+              <span class="time-lbl">Mins</span>
+            </div>
+            <div class="time-unit">
+              <span id="cSecs" class="time-val">00</span>
+              <span class="time-lbl">Segs</span>
+            </div>
+          </div>
+
           <p style="color: #e2e8f0; font-size: 0.95rem;">
             Prepárate para cantar a todo pulmón este <strong>18 de Diciembre en Monterrey</strong>.
           </p>
@@ -406,10 +503,10 @@
   <script>
     let timerInterval = null;
     let decayInterval = null;
+    let confettiLoop = null;
     let timeLeft = 8;
     let balance = 100;
 
-    // Configuración del botón TAP para evitar el ZOOM en celulares
     const tapBtn = document.getElementById('tapButton');
     
     function manejarTap(e) {
@@ -426,11 +523,15 @@
       overlay.classList.add('active');
       document.body.classList.add('bull-shake');
 
+      // Reproducir música al interactuar
+      const audio = document.getElementById('bdayAudio');
+      audio.volume = 0.4;
+      audio.play().catch(() => {});
+
       timeLeft = 8;
       balance = 100;
       actualizarUI();
 
-      // Temporizador principal de 8 segundos
       timerInterval = setInterval(() => {
         timeLeft--;
         document.getElementById('countdown').innerText = timeLeft + 's';
@@ -440,7 +541,6 @@
         }
       }, 1000);
 
-      // Decaimiento del equilibrio
       decayInterval = setInterval(() => {
         balance -= 7;
         if (balance <= 0) {
@@ -466,7 +566,7 @@
       clearInterval(timerInterval);
       clearInterval(decayInterval);
       document.body.classList.remove('bull-shake');
-      alert("🤠 ¡El toro brinco muy fuerte y te tiro! ¡Inténtalo de nuevo presionando más rápido! 🔥");
+      alert("🤠 ¡El toro brincó muy fuerte y te tiró! ¡Inténtalo de nuevo presionando más rápido! 🔥");
       document.getElementById('timerOverlay').classList.remove('active');
     }
 
@@ -481,42 +581,61 @@
       const reveal = document.getElementById('revealWrapper');
       reveal.classList.add('active');
 
-      lanzarConfettiJaripeo();
+      iniciarCuentaRegresiva();
+      iniciarConfettiInfinito();
     }
 
-    function lanzarConfettiJaripeo() {
+    /* Confeti Continuo por los lados para no tapar el texto */
+    function iniciarConfettiInfinito() {
       const colors = ['#b91c1c', '#fbbf24', '#e5e7eb', '#ffffff'];
 
+      // Ráfaga inicial fuerte
       confetti({
-        particleCount: 160,
+        particleCount: 150,
         spread: 100,
         origin: { y: 0.5 },
         colors: colors
       });
 
-      var duration = 4 * 1000;
-      var end = Date.now() + duration;
-
-      (function frame() {
+      // Lluvia suave infinita desde los costados
+      confettiLoop = setInterval(() => {
         confetti({
-          particleCount: 7,
+          particleCount: 3,
           angle: 60,
-          spread: 70,
+          spread: 55,
           origin: { x: 0 },
           colors: colors
         });
         confetti({
-          particleCount: 7,
+          particleCount: 3,
           angle: 120,
-          spread: 70,
+          spread: 55,
           origin: { x: 1 },
           colors: colors
         });
+      }, 400);
+    }
 
-        if (Date.now() < end) {
-          requestAnimationFrame(frame);
+    /* Cuenta regresiva en tiempo real para el 18 de Diciembre */
+    function iniciarCuentaRegresiva() {
+      const targetDate = new Date('December 18, 2026 21:00:00').getTime();
+
+      setInterval(() => {
+        const now = new Date().getTime();
+        const difference = targetDate - now;
+
+        if (difference > 0) {
+          const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+          document.getElementById('cDays').innerText = days < 10 ? '0' + days : days;
+          document.getElementById('cHours').innerText = hours < 10 ? '0' + hours : hours;
+          document.getElementById('cMins').innerText = minutes < 10 ? '0' + minutes : minutes;
+          document.getElementById('cSecs').innerText = seconds < 10 ? '0' + seconds : seconds;
         }
-      })();
+      }, 1000);
     }
   </script>
 

@@ -29,6 +29,26 @@
       position: relative;
     }
 
+    /* Botón de Control de Música Flotante */
+    .music-btn-float {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      z-index: 150;
+      background: rgba(185, 28, 28, 0.85);
+      border: 1px solid rgba(248, 113, 113, 0.6);
+      color: white;
+      padding: 8px 14px;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+      cursor: pointer;
+    }
+
     /* Fondo Místico de Niebla de Forks */
     .bg-animation {
       position: fixed;
@@ -105,7 +125,7 @@
       width: 100%;
       max-width: 500px;
       margin: 0 auto;
-      padding: 24px 18px 80px 18px; /* Espacio extra abajo para los lobos */
+      padding: 60px 18px 80px 18px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -247,7 +267,6 @@
       margin-bottom: 8px;
     }
 
-    /* Contador para la fecha del concierto */
     .countdown-box {
       background: rgba(185, 28, 28, 0.15);
       border: 1px solid rgba(248, 113, 113, 0.3);
@@ -393,16 +412,21 @@
   <div class="bg-animation"></div>
   <div class="fog"></div>
 
+  <!-- Botón Flotante para la Canción 'ME JALO' -->
+  <button id="musicToggleBtn" class="music-btn-float" onclick="toggleAudio()">
+    <span id="musicIcon">🎵</span> <span id="musicText">ME JALO</span>
+  </button>
+
+  <!-- Audio de 'ME JALO' de Grupo Frontera x Fuerza Regida -->
+  <audio id="meJaloAudio" loop preload="auto">
+    <source src="https://audio.com/mexiricansongs/audio/fuerza-regida-grupo-frontera-me-jalo" type="audio/mpeg">
+  </audio>
+
   <!-- Lobos Vaqueros Animados Abajo -->
   <div class="wolf-bottom-bar">
     <div class="walking-wolf">🐺🤠</div>
     <div class="walking-wolf-2">🐺🤠</div>
   </div>
-
-  <!-- Audio Ambiente (Melodía de Celebración) -->
-  <audio id="bdayAudio" loop preload="auto">
-    <source src="https://assets.mixkit.co/music/preview/mixkit-a-very-happy-christmas-897.mp3" type="audio/mpeg">
-  </audio>
 
   <!-- Pantalla del Juego Interactivo de Jaripeo -->
   <div id="timerOverlay" class="timer-overlay">
@@ -506,8 +530,10 @@
     let confettiLoop = null;
     let timeLeft = 8;
     let balance = 100;
+    let isPlaying = false;
 
     const tapBtn = document.getElementById('tapButton');
+    const audio = document.getElementById('meJaloAudio');
     
     function manejarTap(e) {
       if (e) e.preventDefault();
@@ -518,15 +544,30 @@
     tapBtn.addEventListener('touchstart', manejarTap, { passive: false });
     tapBtn.addEventListener('click', manejarTap);
 
+    function toggleAudio() {
+      if (isPlaying) {
+        audio.pause();
+        document.getElementById('musicIcon').innerText = '🔇';
+        isPlaying = false;
+      } else {
+        audio.play().then(() => {
+          document.getElementById('musicIcon').innerText = '🔊';
+          isPlaying = true;
+        }).catch(err => console.log(err));
+      }
+    }
+
     function iniciarJaripeo() {
       const overlay = document.getElementById('timerOverlay');
       overlay.classList.add('active');
       document.body.classList.add('bull-shake');
 
-      // Reproducir música al interactuar
-      const audio = document.getElementById('bdayAudio');
-      audio.volume = 0.4;
-      audio.play().catch(() => {});
+      // Intentar encender la música con la primera interacción del usuario
+      audio.volume = 0.5;
+      audio.play().then(() => {
+        isPlaying = true;
+        document.getElementById('musicIcon').innerText = '🔊';
+      }).catch(() => {});
 
       timeLeft = 8;
       balance = 100;
@@ -585,11 +626,9 @@
       iniciarConfettiInfinito();
     }
 
-    /* Confeti Continuo por los lados para no tapar el texto */
     function iniciarConfettiInfinito() {
       const colors = ['#b91c1c', '#fbbf24', '#e5e7eb', '#ffffff'];
 
-      // Ráfaga inicial fuerte
       confetti({
         particleCount: 150,
         spread: 100,
@@ -597,7 +636,6 @@
         colors: colors
       });
 
-      // Lluvia suave infinita desde los costados
       confettiLoop = setInterval(() => {
         confetti({
           particleCount: 3,
@@ -616,7 +654,6 @@
       }, 400);
     }
 
-    /* Cuenta regresiva en tiempo real para el 18 de Diciembre */
     function iniciarCuentaRegresiva() {
       const targetDate = new Date('December 18, 2026 21:00:00').getTime();
 

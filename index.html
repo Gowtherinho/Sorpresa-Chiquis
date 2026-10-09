@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>¡Feliz Cumpleaños! ❤️ - Una sorpresa para ti</title>
+  <title>¡Feliz Cumpleaños! ❤️ - Una sorpresa mística y ranchera</title>
   
-  <!-- Librería para el efecto de confeti y serpentinas de fiesta -->
+  <!-- Librería para el efecto de confeti temático -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
   <style>
@@ -17,32 +17,44 @@
 
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: radial-gradient(circle at center, #1e1b4b 0%, #0f172a 100%);
-      color: #ffffff;
+      /* Paleta mística de Forks/Luna Nueva: Azul noche y morado oscuro */
+      background: radial-gradient(circle at center, #111827 0%, #030712 100%);
+      color: #e5e7eb;
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 20px;
       overflow-x: hidden;
+      /* Animación de brillo místico sutil de fondo */
+      animation: mysticGlow 8s infinite alternate;
+    }
+
+    @keyframes mysticGlow {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(17, 24, 39, 0.6); /* Más oscuro y transparente */
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.1); /* Borde más sutil */
       border-radius: 28px;
       padding: 36px 24px;
       max-width: 440px;
       width: 100%;
       text-align: center;
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+      /* Sombra más dramática y 'crepuscular' */
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
       position: relative;
+      /* Toque ranchero: textura de papel envejecido muy sutil */
+      background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiIHZpZXdCb3g9IjAgMCA0IDQiPjxnIGZpbGwtcnVsZT0iZXZlbm9kZCI+PGcgZmlsbD0iI2ZmZiIgZmlsbC1vcGFjaXR5PSIwLjA1Ij48cGF0aCBkPSJNMCAwaDF2MUgwVjB6TTEgMWgxdjFIMVYxeiBNMiAyaDF2MUgyVjJ6TTMgM2gxdjFIM1YzencyLg==');
     }
 
     .badge-bday {
-      background: linear-gradient(135deg, #f43f5e 0%, #be123c 100%);
+      /* Color Crepúsculo: Rojo sangre profundo */
+      background: linear-gradient(135deg, #7f1d1d 0%, #450a0a 100%);
       color: white;
       font-size: 0.85rem;
       font-weight: 700;
@@ -52,27 +64,36 @@
       border-radius: 20px;
       display: inline-block;
       margin-bottom: 16px;
-      box-shadow: 0 4px 12px rgba(244, 63, 94, 0.3);
+      box-shadow: 0 4px 12px rgba(127, 29, 29, 0.5);
     }
 
     h1 {
       font-size: 1.8rem;
       font-weight: 800;
       margin-bottom: 14px;
-      background: linear-gradient(135deg, #fb7185 0%, #f43f5e 100%);
+      /* Degradado Crepúsculo: De rojo pálido a plateado */
+      background: linear-gradient(135deg, #fca5a5 0%, #e5e7eb 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      /* Animación de brillo místico */
+      animation: shineTitle 3s infinite linear alternate;
+    }
+
+    @keyframes shineTitle {
+      from { text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
+      to { text-shadow: 0 0 20px rgba(255, 255, 255, 1); }
     }
 
     p.subtitle {
       font-size: 1rem;
-      color: #e2e8f0;
+      color: #94a3b8; /* Gris más apagado */
       margin-bottom: 28px;
       line-height: 1.6;
     }
 
     .btn-surprise {
-      background: linear-gradient(135deg, #f43f5e 0%, #be123c 100%);
+      /* Estilo Ranchero/Oeste: Degradado marrón y rojo tierra */
+      background: linear-gradient(135deg, #92400e 0%, #7f1d1d 100%);
       color: #ffffff;
       border: none;
       padding: 18px 36px;
@@ -80,24 +101,25 @@
       font-weight: 700;
       border-radius: 50px;
       cursor: pointer;
-      box-shadow: 0 10px 25px rgba(244, 63, 94, 0.4);
+      box-shadow: 0 10px 25px rgba(146, 64, 14, 0.5);
       transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      animation: pulse 2s infinite;
+      /* Animación de pulso más 'pesada' y lenta */
+      animation: pulseRanchero 2.5s infinite;
     }
 
     .btn-surprise:hover {
       transform: scale(1.05);
-      box-shadow: 0 15px 30px rgba(244, 63, 94, 0.6);
+      box-shadow: 0 15px 30px rgba(146, 64, 14, 0.7);
     }
 
     .btn-surprise:active {
       transform: scale(0.95);
     }
 
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.6); }
-      70% { box-shadow: 0 0 0 18px rgba(244, 63, 94, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0); }
+    @keyframes pulseRanchero {
+      0% { box-shadow: 0 0 0 0 rgba(146, 64, 14, 0.7); }
+      70% { box-shadow: 0 0 0 20px rgba(146, 64, 14, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(146, 64, 14, 0); }
     }
 
     .reveal-section {
@@ -105,66 +127,93 @@
       margin-top: 10px;
     }
 
-    .pop-in {
-      animation: popIn 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    /* Animación de revelación: PopIn con un giro místico */
+    .mystic-reveal {
+      animation: mysticReveal 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
     }
 
-    @keyframes popIn {
+    @keyframes mysticReveal {
       0% {
         opacity: 0;
-        transform: scale(0.5) rotate(-3deg);
+        transform: scale(0.7) translateY(20px) rotateY(-180deg);
+        filter: blur(10px);
       }
       100% {
         opacity: 1;
-        transform: scale(1) rotate(0deg);
+        transform: scale(1) translateY(0) rotateY(0deg);
+        filter: blur(0px);
       }
     }
 
     .ticket-img {
       width: 100%;
       border-radius: 18px;
-      border: 3px solid rgba(255, 255, 255, 0.3);
-      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.6);
+      /* Borde Ranchero/Oeste: Estilo madera envejecida oscura */
+      border: 3px solid #3f2a14;
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.8);
       margin-bottom: 22px;
+      /* Animación de brillo místico sutil al aparecer */
+      animation: imgSparkle 2s forwards;
+    }
+
+    @keyframes imgSparkle {
+      0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+      50% { box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.5); }
+      100% { box-shadow: 0 16px 32px rgba(0, 0, 0, 0.8); }
     }
 
     .message {
       font-size: 1.15rem;
-      color: #f8fafc;
+      color: #e5e7eb;
       font-weight: 600;
       line-height: 1.6;
     }
 
     .flight-box {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px dashed rgba(251, 113, 133, 0.5);
+      background: rgba(17, 24, 39, 0.8); /* Más opaco */
+      border: 1px dashed rgba(146, 64, 14, 0.5); /* Borde marrón tierra */
       border-radius: 16px;
       padding: 16px;
       margin: 18px 0;
       text-align: center;
+      /* Animación de vibración sutil como un motor de avión */
+      animation: flightVibe 1s infinite alternate;
+    }
+
+    @keyframes flightVibe {
+      from { transform: translateX(-1px); }
+      to { transform: translateX(1px); }
     }
 
     .flight-box p {
       font-size: 0.95rem;
-      color: #e2e8f0;
+      color: #94a3b8;
       line-height: 1.5;
     }
 
     .flight-box strong {
-      color: #fb7185;
+      color: #b91c1c; /* Rojo Crepúsculo */
     }
 
     .highlight {
-      color: #fb7185;
+      color: #fca5a5; /* Rojo pálido */
       font-size: 1.3rem;
       display: block;
       margin-top: 6px;
+      /* Animación de parpadeo místico */
+      animation: mysticBlink 2s infinite alternate;
+    }
+
+    @keyframes mysticBlink {
+      from { opacity: 0.8; }
+      to { opacity: 1; text-shadow: 0 0 10px rgba(252, 165, 165, 0.8); }
     }
 
     .footer-note {
       margin-top: 18px;
       font-size: 0.95rem;
-      color: #f43f5e;
+      /* Color Crepúsculo: Rojo sangre profundo */
+      color: #b91c1c;
       font-weight: 700;
       letter-spacing: 0.5px;
     }
@@ -181,7 +230,7 @@
     </div>
 
     <div id="reveal-section" class="reveal-section">
-      <!-- Imagen cargada dinámicamente con la versión editada -->
+      <!-- Imagen cargada dinámicamente -->
       <img src="https://i.ibb.co/3ykG4S5G/grupo-frontera.jpg" alt="Iremos a ver a Grupo Frontera" class="ticket-img">
       
       <p class="message">
@@ -200,39 +249,53 @@
 
   <script>
     function mostrarSorpresa() {
-      document.getElementById('cover-section').style.display = 'none';
+      // Efecto místico de fundido de salida
+      const cover = document.getElementById('cover-section');
+      cover.style.animation = 'mysticReveal 0.8s reverse forwards';
       
-      const reveal = document.getElementById('reveal-section');
-      reveal.style.display = 'block';
-      reveal.classList.add('pop-in');
+      setTimeout(() => {
+        cover.style.display = 'none';
+        
+        const reveal = document.getElementById('reveal-section');
+        reveal.style.display = 'block';
+        reveal.classList.add('mystic-reveal');
 
-      lanzarConfetti();
+        // Lanzar confeti temático Ranchero/Crepúsculo
+        lanzarConfettiTematico();
+      }, 800);
     }
 
-    function lanzarConfetti() {
+    function lanzarConfettiTematico() {
+      // Paleta temática: Rojo sangre, Plateado, Marrón tierra y Amarillo dorado
+      const colores = ['#b91c1c', '#e5e7eb', '#92400e', '#fbbf24'];
+      
       confetti({
-        particleCount: 120,
-        spread: 80,
-        origin: { y: 0.6 }
+        particleCount: 150,
+        spread: 100,
+        origin: { y: 0.6 },
+        colors: colores,
+        // Toque místico: formas especiales de confeti
+        shapes: ['circle', 'square'], 
       });
 
-      var duration = 3.5 * 1000;
+      var duration = 4 * 1000;
       var end = Date.now() + duration;
 
       (function frame() {
+        // Confeti de serpentinas místicas desde los lados
         confetti({
-          particleCount: 5,
+          particleCount: 8,
           angle: 60,
-          spread: 60,
+          spread: 80,
           origin: { x: 0 },
-          colors: ['#f43f5e', '#fb7185', '#ffffff', '#fbbf24']
+          colors: [colores[0], colores[1]] // Rojo y Plateado (Edward)
         });
         confetti({
-          particleCount: 5,
+          particleCount: 8,
           angle: 120,
-          spread: 60,
+          spread: 80,
           origin: { x: 1 },
-          colors: ['#f43f5e', '#fb7185', '#ffffff', '#fbbf24']
+          colors: [colores[2], colores[3]] // Marrón y Dorado (Jacob)
         });
 
         if (Date.now() < end) {

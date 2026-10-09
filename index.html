@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Proyecto Demo GitHub - Test Interactivo</title>
+  <title>Mi Proyecto Web - Test de Rendimiento ⚡</title>
   
   <!-- Librería 3D Three.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -42,7 +42,7 @@
       pointer-events: none;
     }
 
-    /* --- CONTENEDOR DE NOTIFICACIONES FALSAS ESTILO iOS --- */
+    /* --- NOTIFICACIONES FALSAS ESTILO iOS --- */
     .ios-notification-container {
       position: fixed;
       top: 15px;
@@ -58,13 +58,13 @@
     }
 
     .ios-notification {
-      background: rgba(25, 25, 30, 0.88);
+      background: rgba(25, 25, 30, 0.92);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 20px;
       padding: 14px 16px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.8);
       display: flex;
       align-items: center;
       gap: 12px;
@@ -115,7 +115,6 @@
       font-weight: 700;
       color: #94a3b8;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
     }
 
     .ios-time {
@@ -136,9 +135,20 @@
       line-height: 1.3;
     }
 
-    /* Personajes Edward y Jacob (SOLO APARECEN EN LA REVELACIÓN FINAL) */
+    /* EFECTO GLITCH / TRABADO */
+    .glitch-active {
+      animation: glitchScreen 0.15s infinite alternate;
+    }
+
+    @keyframes glitchScreen {
+      0% { filter: hue-rotate(0deg) contrast(120%); transform: translate(2px, -2px); }
+      50% { filter: hue-rotate(90deg) contrast(200%); transform: translate(-3px, 2px); }
+      100% { filter: hue-rotate(180deg) invert(20%); transform: translate(1px, 1px); }
+    }
+
+    /* Personajes Edward y Jacob (SÓLO APARECEN AL REVELAR) */
     .wolf-bottom-bar {
-      display: none; /* Oculto al inicio para no spoilear */
+      display: none;
       position: fixed;
       bottom: 0;
       left: 0;
@@ -196,7 +206,7 @@
       100% { transform: translateY(110%) rotate(0deg); }
     }
 
-    /* Contenedor Principal Ajustado a Celular */
+    /* Contenedor Principal */
     .app-container {
       position: relative;
       z-index: 10;
@@ -211,7 +221,6 @@
       align-items: center;
     }
 
-    /* Estilo de Tarjeta VIP Full Width */
     .hero-box {
       width: 100%;
       background: rgba(15, 23, 42, 0.85);
@@ -221,13 +230,13 @@
       border-radius: 32px;
       padding: 30px 20px;
       text-align: center;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 30px rgba(59, 130, 246, 0.2);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
     }
 
     .badge-bday {
-      background: linear-gradient(135deg, #1e3a8a 0%, #1e1b4b 100%);
-      border: 1px solid rgba(147, 197, 253, 0.3);
-      color: #bfdbfe;
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #38bdf8;
       font-size: 0.8rem;
       font-weight: 800;
       letter-spacing: 1.5px;
@@ -242,7 +251,7 @@
       font-weight: 900;
       line-height: 1.2;
       margin-bottom: 16px;
-      background: linear-gradient(135deg, #ffffff 0%, #93c5fd 100%);
+      background: linear-gradient(135deg, #ffffff 0%, #38bdf8 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -252,21 +261,19 @@
       color: #cbd5e1;
       line-height: 1.6;
       margin-bottom: 28px;
-      font-weight: 400;
     }
 
-    /* Botón Jaripeo */
     .btn-jaripeo {
       width: 100%;
-      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
       color: #ffffff;
-      border: 2px solid #60a5fa;
+      border: 2px solid #38bdf8;
       padding: 20px 20px;
       font-size: 1.05rem;
       font-weight: 800;
       border-radius: 50px;
       cursor: pointer;
-      box-shadow: 0 12px 30px rgba(37, 99, 235, 0.5);
+      box-shadow: 0 12px 30px rgba(2, 132, 199, 0.5);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -278,7 +285,7 @@
       transform: scale(0.94);
     }
 
-    /* Opening Cinematográfico Neutral */
+    /* Opening Cinematográfico */
     .cinema-intro {
       display: none;
       position: fixed;
@@ -300,17 +307,17 @@
     }
 
     .intro-title {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       font-weight: 900;
       letter-spacing: 4px;
-      color: #60a5fa;
+      color: #38bdf8;
       text-transform: uppercase;
       margin-bottom: 15px;
       animation: fadeInCinema 2s ease forwards;
     }
 
     .intro-subtitle {
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       color: #e2e8f0;
       letter-spacing: 2px;
       animation: fadeInCinema 3s ease forwards;
@@ -321,7 +328,7 @@
       to { opacity: 1; transform: scale(1); }
     }
 
-    /* Pantalla de la Trampa (10 Segundos) */
+    /* Pantalla de Traba / Glitch (5 Segundos) */
     .fakeout-overlay {
       display: none;
       position: fixed;
@@ -343,27 +350,29 @@
     }
 
     .fakeout-card {
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(239, 68, 68, 0.5);
       border-radius: 24px;
       padding: 30px 20px;
       max-width: 400px;
       width: 100%;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+      box-shadow: 0 0 40px rgba(239, 68, 68, 0.4);
     }
 
     .fakeout-title {
       font-size: 1.3rem;
       font-weight: 800;
-      color: #fca5a5;
+      color: #ef4444;
       margin-bottom: 15px;
+      font-family: monospace;
     }
 
     .fakeout-msg {
-      font-size: 1.05rem;
+      font-size: 1rem;
       color: #e2e8f0;
       line-height: 1.6;
       margin-bottom: 20px;
+      font-family: monospace;
     }
 
     .fakeout-timer {
@@ -373,20 +382,7 @@
       margin-top: 10px;
     }
 
-    /* Animación de Toro Sacudiéndose */
-    .bull-shake {
-      animation: bullBuck 0.12s infinite alternate;
-    }
-
-    @keyframes bullBuck {
-      0% { transform: translate(3px, 2px) rotate(0deg); }
-      25% { transform: translate(-2px, -3px) rotate(-2deg); }
-      50% { transform: translate(-4px, 1px) rotate(2deg); }
-      75% { transform: translate(4px, 3px) rotate(-2deg); }
-      100% { transform: translate(2px, -2px) rotate(3deg); }
-    }
-
-    /* Sección Revelación Sorpresa */
+    /* Sección Revelación Sorpresa REAL */
     .reveal-wrapper {
       display: none;
       width: 100%;
@@ -502,7 +498,7 @@
       border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    /* Overlay Contador e Interactivo del Toro */
+    /* Overlay Contador de Carga de Batería/Energía */
     .timer-overlay {
       display: none;
       position: fixed;
@@ -522,51 +518,51 @@
       display: flex;
     }
 
-    .animated-bull {
+    .animated-battery {
       font-size: 5rem;
       display: inline-block;
-      animation: bullRodeo 0.4s infinite alternate ease-in-out;
+      animation: batteryPulse 0.5s infinite alternate ease-in-out;
       margin-bottom: -10px;
     }
 
-    @keyframes bullRodeo {
-      0% { transform: translateY(0) rotate(-10deg) scale(1); }
-      100% { transform: translateY(-25px) rotate(15deg) scale(1.15); }
+    @keyframes batteryPulse {
+      0% { transform: scale(1); filter: drop-shadow(0 0 10px #38bdf8); }
+      100% { transform: scale(1.15); filter: drop-shadow(0 0 25px #0284c7); }
     }
 
     .counter-number {
       font-size: 4rem;
       font-weight: 900;
-      color: #60a5fa;
-      text-shadow: 0 0 30px #1d4ed8;
+      color: #38bdf8;
+      text-shadow: 0 0 30px #0284c7;
     }
 
     .progress-bar-container {
       width: 85%;
-      height: 20px;
+      height: 22px;
       background: rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
+      border-radius: 12px;
       margin: 15px 0;
       overflow: hidden;
-      border: 1px solid rgba(96, 165, 250, 0.4);
+      border: 1px solid rgba(56, 189, 248, 0.5);
     }
 
     .progress-bar {
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, #ef4444, #22c55e);
+      background: linear-gradient(90deg, #0284c7, #38bdf8);
       transition: width 0.1s linear;
     }
 
     .tap-btn {
-      background: linear-gradient(135deg, #22c55e 0%, #15803d 100%);
+      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
       color: white;
       border: none;
       padding: 22px 25px;
       font-size: 1.15rem;
       font-weight: 900;
       border-radius: 50px;
-      box-shadow: 0 10px 25px rgba(34, 197, 94, 0.5);
+      box-shadow: 0 10px 25px rgba(2, 132, 199, 0.5);
       cursor: pointer;
       margin-top: 15px;
       width: 85%;
@@ -611,44 +607,43 @@
     </div>
   </div>
 
-  <!-- Elemento Audio apunta al archivo local 'cancion.mp3' en tu repositorio de GitHub -->
+  <!-- Elemento Audio canaliza la canción local cancion.mp3 -->
   <audio id="meJaloAudio" loop preload="auto">
     <source src="cancion.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- Opening Cinematográfico TOTALMENTE DISCRETIZADO -->
+  <!-- Opening Discreto de la App -->
   <div id="cinemaIntro" class="cinema-intro">
-    <div style="font-size: 4rem; margin-bottom: 20px;">💻⚡</div>
-    <div class="intro-title">GITHUB DEMO APP</div>
-    <div class="intro-subtitle">CARGANDO MÓDULO INTERACTIVO...</div>
+    <div style="font-size: 4rem; margin-bottom: 20px;">⚡📱</div>
+    <div class="intro-title">SISTEMA DE PRUEBA WEB</div>
+    <div class="intro-subtitle">INICIANDO MÓDULO INTERACTIVO...</div>
   </div>
 
-  <!-- Pantalla de la Trampa (Fake Out de 10 Segundos) -->
+  <!-- Pantalla de Traba / Glitch (Exactamente 5 Segundos) -->
   <div id="fakeoutOverlay" class="fakeout-overlay">
     <div class="fakeout-card">
-      <div style="font-size: 3rem; margin-bottom: 10px;">🎉✨</div>
-      <div class="fakeout-title">¡LO LOGRASTE!</div>
+      <div style="font-size: 3rem; margin-bottom: 10px;">⚠️⚡</div>
+      <div class="fakeout-title">SYSTEM WARNING: ERROR 404</div>
       <div class="fakeout-msg">
-        Espero que te guste lo que he logrado con el codigo HTML mas avanzado Jejeje 
+        Sobrecarga de energía en la prueba... Accediendo a archivos guardados...
       </div>
-      <p style="color: #cbd5e1; font-size: 0.85rem;">Espera...</p>
-      <div class="fakeout-timer" id="fakeoutTimer">10</div>
+      <div class="fakeout-timer" id="fakeoutTimer">5</div>
     </div>
   </div>
 
-  <!-- Personajes Edward y Jacob (SÓLO SE ACTIVAN EN LA REVELACIÓN FINAL) -->
+  <!-- Personajes Edward y Jacob (SÓLO SE ACTIVAN EN LA REVELACIÓN REAL) -->
   <div id="wolfBottomBar" class="wolf-bottom-bar">
     <img src="Edward.jpeg" alt="Edward" class="character-avatar-1">
     <img src="Jacob.jpeg" alt="Jacob" class="character-avatar-2">
   </div>
 
-  <!-- Pantalla del Juego Interactivo de Jaripeo -->
+  <!-- Pantalla del Juego de Carga de Energía (8 Segundos) -->
   <div id="timerOverlay" class="timer-overlay">
-    <div class="animated-bull">🐂🤠</div>
+    <div class="animated-battery">⚡🔋</div>
     <div class="counter-number" id="countdown">8s</div>
     
-    <p style="color: #93c5fd; font-weight: 800; font-size: 1.1rem; margin-top: 5px;">
-      ¡PRUEBA DE VELOCIDAD DE CLICS!
+    <p style="color: #38bdf8; font-weight: 800; font-size: 1.1rem; margin-top: 5px;">
+      ¡CARGA LA BATERÍA AL MÁXIMO!
     </p>
 
     <div class="progress-bar-container">
@@ -656,26 +651,26 @@
     </div>
 
     <button id="tapButton" class="tap-btn">
-      ⚡ ¡MANTÉN EL EQUILIBRIO! (TAP) ⚡
+      ⚡ Presiona rápido (TAP) ⚡
     </button>
     
     <p style="color: #94a3b8; margin-top: 15px; font-size: 0.85rem; text-align: center;">
-      ¡Presiona el botón rápido para superar la prueba durante 8 segundos!
+      ¡Demuestra qué tan rápido puedes presionar durante 8 segundos!
     </p>
   </div>
 
   <div class="app-container">
     
-    <!-- Portada Inicial TOTALMENTE DISCRETIZADA Y DESPISTADA -->
+    <!-- Portada Inicial TOTALMENTE CASUAL Y CREÍBLE -->
     <div id="coverCard" class="hero-box">
-      <span class="badge-bday">💻 PROYECTO GITHUB DEMO 💻</span>
-      <h1>Prueba de Código HTML ✨</h1>
+      <span class="badge-bday">🧪 PROTOTIPO WEB 🧪</span>
+      <h1>Prueba de Rendimiento ✨</h1>
       <p class="subtitle">
-        Estuve practicando unas animaciones y lógica con JavaScript para enseñarte de lo que soy capaz de programar aquí en GitHub.
+        Armé este minijuego interactivo de velocidad en JavaScript. ¡Ayúdame a probarlo a ver si funciona bien en tu celular!
       </p>
       
       <button id="startBtn" class="btn-jaripeo" onclick="iniciarOpeningCinematografico()">
-        <span>🎮</span> PROBAR DEMO DEL JUEGO HTML 🚀
+        <span>🚀</span> EMPEZAR PRUEBA (8 SEGS)
       </button>
     </div>
 
@@ -739,7 +734,7 @@
   </div>
 
   <script>
-    /* Configuración de Escena 3D con Three.js */
+    /* Configuración 3D Three.js */
     let scene, camera, renderer, particles;
 
     function init3D() {
@@ -760,7 +755,7 @@
       geometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
       const material = new THREE.PointsMaterial({
         size: 0.035,
-        color: 0x60a5fa,
+        color: 0x38bdf8,
         transparent: true,
         opacity: 0.8
       });
@@ -789,7 +784,7 @@
 
     init3D();
 
-    /* Lógica de Audio y Jaripeo */
+    /* Lógica del Juego y Glitch */
     let timerInterval = null;
     let decayInterval = null;
     let confettiLoop = null;
@@ -833,14 +828,13 @@
 
       setTimeout(() => {
         cinema.classList.remove('active');
-        iniciarJaripeo();
-      }, 2500);
+        iniciarJuegoEnergia();
+      }, 2000);
     }
 
-    function iniciarJaripeo() {
+    function iniciarJuegoEnergia() {
       const overlay = document.getElementById('timerOverlay');
       overlay.classList.add('active');
-      document.body.classList.add('bull-shake');
 
       timeLeft = 8;
       balance = 100;
@@ -851,7 +845,7 @@
         document.getElementById('countdown').innerText = timeLeft + 's';
 
         if (timeLeft <= 0) {
-          ganarJaripeo();
+          ganarJuego();
         }
       }, 1000);
 
@@ -859,7 +853,7 @@
         balance -= 7;
         if (balance <= 0) {
           balance = 0;
-          perderJaripeo();
+          perderJuego();
         }
         actualizarUI();
       }, 150);
@@ -868,52 +862,45 @@
     function actualizarUI() {
       const bar = document.getElementById('progressBar');
       bar.style.width = balance + '%';
-
-      if (balance > 50) {
-        bar.style.background = 'linear-gradient(90deg, #eab308, #22c55e)';
-      } else {
-        bar.style.background = 'linear-gradient(90deg, #ef4444, #dc2626)';
-      }
     }
 
-    function perderJaripeo() {
+    function perderJuego() {
       clearInterval(timerInterval);
       clearInterval(decayInterval);
-      document.body.classList.remove('bull-shake');
-      alert("🤠 ¡Presionaste muy lento! ¡Inténtalo de nuevo más rápido para pasar la prueba! 🔥");
+      alert("⚡ ¡Faltó energía! ¡Inténtalo de nuevo presionando más rápido!");
       document.getElementById('timerOverlay').classList.remove('active');
     }
 
-    function ganarJaripeo() {
+    function ganarJuego() {
       clearInterval(timerInterval);
       clearInterval(decayInterval);
-      document.body.classList.remove('bull-shake');
       
       document.getElementById('timerOverlay').classList.remove('active');
       
-      // Activar la trampa (Fake Out de 10 segundos con Notificaciones Falsas)
-      iniciarTrampaFakeOut();
+      // Activar pantalla de traba/glitch por 5 segundos
+      iniciarTrabaGlitch();
     }
 
-    function iniciarTrampaFakeOut() {
+    function iniciarTrabaGlitch() {
       const fakeout = document.getElementById('fakeoutOverlay');
       fakeout.classList.add('active');
+      document.body.classList.add('glitch-active');
 
-      // Notificación 1: Aeroméxico a los 3 segundos
+      // Notificación 1: Aeroméxico a los 1.5 segundos
       setTimeout(() => {
         const notifFlight = document.getElementById('notifFlight');
         notifFlight.classList.add('show');
         if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
-      }, 3000);
+      }, 1500);
 
-      // Notificación 2: Grupo Frontera a los 6 segundos
+      // Notificación 2: Grupo Frontera a los 3.2 segundos
       setTimeout(() => {
         const notifFrontera = document.getElementById('notifFrontera');
         notifFrontera.classList.add('show');
         if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
-      }, 6000);
+      }, 3200);
 
-      let fakeCount = 10;
+      let fakeCount = 5; // Exactamente 5 segundos de traba
       const fakeTimer = setInterval(() => {
         fakeCount--;
         document.getElementById('fakeoutTimer').innerText = fakeCount;
@@ -921,8 +908,9 @@
         if (fakeCount <= 0) {
           clearInterval(fakeTimer);
           fakeout.classList.remove('active');
+          document.body.classList.remove('glitch-active');
           
-          // Ocultar notificaciones al revelar la sorpresa
+          // Ocultar notificaciones al revelar
           document.getElementById('notifFlight').classList.remove('show');
           document.getElementById('notifFrontera').classList.remove('show');
 
@@ -941,12 +929,12 @@
       // Activar a Edward y Jacob asomándose abajo
       document.getElementById('wolfBottomBar').classList.add('active');
 
-      // Cambiar las partículas 3D a rojo pasión
+      // Cambiar partículas 3D a rojo pasión
       if (particles) {
         particles.material.color.setHex(0xf87171);
       }
 
-      // 1. Música de 'Hecha Pa' Mí' a todo volumen desde el archivo local
+      // 1. Música de Grupo Frontera a todo volumen
       reproducirMusicaGarantizada();
 
       // 2. Reloj de Concierto
